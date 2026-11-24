@@ -251,7 +251,7 @@
 
 /* ---------- Caption under the TV ---------- */
 .player__caption {
-  margin-top: 14px;
+  margin-top: 30px;
   text-align: center;
 }
 .player__title {
@@ -397,7 +397,7 @@
     --len: 100%;
     width: 100%;
     height: auto;
-    margin-top: 4px;
+    margin-top: 22px;   /* breathing room below the tape title */
   }
   .side-tape__float { position: relative; inset: auto; }
   .side-tape .tape {

@@ -410,14 +410,7 @@
   .side-tape .tape:hover,
   .side-tape .tape:focus-visible { transform: translateY(-4px); }
   .side-tape .tape__shell { aspect-ratio: 5 / 1; min-height: 44px; }
-  .side-tape__title {
-    position: static;
-    width: auto;
-    margin: 8px 0 0;
-    font-size: 1.1rem;
-    opacity: 1;
-    transform: none;
-  }
+  .side-tape__title { display: none; }   /* the label already shows the title */
 }
 
 /* Phones: controls on two rows */

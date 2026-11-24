@@ -235,10 +235,19 @@
       });
     },
 
-    /* Static + tracking lines; applyState runs halfway through */
-    channelChange: function (applyState, ms) {
+    /* Static + tracking lines; applyState runs halfway through.
+       opts.early: apply the new state right away, under the static
+       (needed when an input must get focus inside the same click). */
+    channelChange: function (applyState, ms, opts) {
       var self = this;
       ms = ms || 500;
+      if (opts && opts.early) {
+        self.el.classList.add("is-static");
+        self.setStateInstant(applyState);
+        return wait(reducedMotion() ? 0 : ms).then(function () {
+          self.el.classList.remove("is-static");
+        });
+      }
       if (reducedMotion()) {
         return animate(self.content, [{ opacity: 1 }, { opacity: 0 }], { duration: 150, fill: "forwards" }).finished
           .then(function (a) {

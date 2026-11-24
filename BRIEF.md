@@ -25,8 +25,9 @@ Placeholders in `[BRACKETS]` are things I'll fill in later. Build with placehold
 - Folder structure (adjust if you have a good reason, tell me why):
   ```
   index.html
-  css/        base.css, tv.css, header.css, labels.css, lock.css, shelf.css, player.css
-  js/         config.js, app.js (router/views), tv.js, tape.js, header.js, player.js,
+  css/        base.css, app.css (view shell, flash, particles), tv.css, header.css,
+              labels.css, lock.css, shelf.css, player.css
+  js/         config.js, app.js (router), lock.js, tv.js, tape.js, header.js, player.js,
               effects.js, sound.js, icons.js (SVG sprite), sha256.js (file:// fallback)
   assets/     favicon (all other drawings are SVG symbols in js/icons.js)
   videos/     tape-1.mp4 … tape-6.mp4 + tape-1.jpg … (posters)
@@ -34,7 +35,7 @@ Placeholders in `[BRACKETS]` are things I'll fill in later. Build with placehold
               make-placeholders.html (section 9)
   references/ inspiration only — never linked from the site, not in git
   ```
-  Why the extras: the tape spine (`tape.js`, `labels.css`) is shared by the Shelf and the Player's side tapes; `icons.js` puts every SVG drawing on the page as a reusable symbol, which works on file://; `sha256.js` is a small hand-written hash in case a browser blocks built-in hashing on file://.
+  Why the extras: the tape spine (`tape.js`, `labels.css`) is shared by the Shelf and the Player's side tapes; `icons.js` puts every SVG drawing on the page as a reusable symbol, which works on file://; `sha256.js` is a small hand-written hash in case a browser blocks built-in hashing on file://; each view gets its own file (`lock.js`, later `shelf.js`, `player.js`) so `app.js` stays a short router.
 - Google Fonts are fine. Everything else local.
 - Build the TV, tapes, bows, washi tape, stickers and notes with **CSS/SVG wherever possible** (sharp at any size, easy to recolor), not raster images.
 - Animate only `transform` and `opacity` so everything stays smooth (60 fps).

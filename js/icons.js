@@ -8,6 +8,33 @@
 (function () {
   var SVG_NS = "http://www.w3.org/2000/svg";
 
+  /* Lace doily: scalloped edge, a ring of holes, a ring of petals */
+  function doily() {
+    var n = 40, r = 46, d = "", i, a, x, y;
+    for (i = 0; i <= n; i++) {
+      a = (i / n) * Math.PI * 2;
+      x = (Math.cos(a) * r).toFixed(2);
+      y = (Math.sin(a) * r).toFixed(2);
+      d += i === 0 ? "M" + x + " " + y : " A3.7 3.7 0 0 1 " + x + " " + y;
+    }
+    var holes = "", petals = "";
+    for (i = 0; i < 32; i++) {
+      a = (i / 32) * Math.PI * 2;
+      holes += '<circle cx="' + (Math.cos(a) * 40).toFixed(2) + '" cy="' + (Math.sin(a) * 40).toFixed(2) + '" r="1.6"/>';
+    }
+    for (i = 0; i < 16; i++) {
+      a = (i / 16) * 360;
+      petals += '<ellipse cx="0" cy="-27" rx="3.4" ry="7" transform="rotate(' + a + ')"/>';
+    }
+    return '<symbol id="i-doily" viewBox="-50 -50 100 100" preserveAspectRatio="none">' +
+      '<path d="' + d + ' Z" style="fill:#FFFCF6" stroke="rgba(62,39,37,.12)" stroke-width=".5"/>' +
+      '<g style="fill:var(--paper)" stroke="rgba(62,39,37,.1)" stroke-width=".3">' + holes + '</g>' +
+      '<circle r="34" fill="none" stroke="rgba(62,39,37,.1)" stroke-width=".5" stroke-dasharray="1.2 1.4"/>' +
+      '<g fill="none" stroke="rgba(62,39,37,.13)" stroke-width=".5">' + petals + '</g>' +
+      '<circle r="17" fill="none" stroke="rgba(62,39,37,.1)" stroke-width=".5" stroke-dasharray="1 1.2"/>' +
+    '</symbol>';
+  }
+
   var SPRITE =
     '<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">' +
 
@@ -63,6 +90,36 @@
       '<path d="M4 9.2 H7.6 L12.4 5.2 C12.9 4.8 13.6 5.1 13.6 5.8 V18.2 C13.6 18.9 12.9 19.2 12.4 18.8 L7.6 14.8 H4 C3.4 14.8 3 14.4 3 13.8 V10.2 C3 9.6 3.4 9.2 4 9.2 Z"/>' +
       '<path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="M16.6 9.4 L21.2 14.6 M21.2 9.4 L16.6 14.6"/>' +
     '</symbol>' +
+
+    /* Pressed flower: blush petals, sage leaves */
+    '<symbol id="i-flower" viewBox="0 0 60 110">' +
+      '<path fill="none" style="stroke:#8E9D78" stroke-width="2" stroke-linecap="round" d="M31 108 C29 90 33 72 30 52 C29 44 30 38 30 34"/>' +
+      '<path style="fill:var(--sage)" d="M30 80 C18 76 9 66 8 56 C19 58 27 66 30 80 Z"/>' +
+      '<path style="fill:var(--sage)" d="M31 66 C42 62 50 52 52 42 C41 45 33 53 31 66 Z"/>' +
+      '<path fill="none" stroke="rgba(90,105,70,.45)" stroke-width=".8" d="M29 78 C22 72 15 64 11 58 M32 64 C39 58 45 51 49 45"/>' +
+      '<g style="fill:var(--blush)" stroke="rgba(214,58,85,.35)" stroke-width=".7">' +
+        '<ellipse cx="30" cy="16" rx="7" ry="10"/>' +
+        '<ellipse cx="30" cy="16" rx="7" ry="10" transform="rotate(72 30 26)"/>' +
+        '<ellipse cx="30" cy="16" rx="7" ry="10" transform="rotate(144 30 26)"/>' +
+        '<ellipse cx="30" cy="16" rx="7" ry="10" transform="rotate(216 30 26)"/>' +
+        '<ellipse cx="30" cy="16" rx="7" ry="10" transform="rotate(288 30 26)"/>' +
+      '</g>' +
+      '<circle cx="30" cy="26" r="5" style="fill:var(--butter)" stroke="rgba(180,120,40,.4)" stroke-width=".7"/>' +
+    '</symbol>' +
+
+    /* Hand-drawn arrow, pointing left-down (flip with CSS for other directions) */
+    '<symbol id="i-arrow" viewBox="0 0 90 60">' +
+      '<path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="M86 6 C66 2 40 8 26 24 C18 33 14 42 13 52"/>' +
+      '<path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="M4 41 C8 45 11 49 13 55 C17 50 21 46 27 43"/>' +
+    '</symbol>' +
+
+    /* Tall hooked arrow: comes up from below, curls left at the top */
+    '<symbol id="i-arrow-hook" viewBox="0 0 40 130" preserveAspectRatio="none">' +
+      '<path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" d="M24 128 C31 100 36 62 33 34 C31 20 24 13 10 11"/>' +
+      '<path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" d="M17 3 C14 6 11 8 8 11 C12 13 15 16 17 20"/>' +
+    '</symbol>' +
+
+    doily() +
 
     '</svg>';
 

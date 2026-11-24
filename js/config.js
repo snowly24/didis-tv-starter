@@ -33,7 +33,9 @@ window.DIDI_CONFIG = {
     playButton: "PLAY",
     hintLink: "need a hint?",
     noSignal: "NO SIGNAL",
-    pressPower: "press power"
+    pressPower: "press power",
+    passwordLabel: "Password",   // read aloud by screen readers
+    tapeSlot: "Tape slot"        // read aloud by screen readers
   },
 
   /* ---------- VCR on-screen display words (the "PLAY ▸" text) ---------- */

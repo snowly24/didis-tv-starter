@@ -44,7 +44,16 @@
       var r = note.getBoundingClientRect();
       Effects.burst(r.left + r.width / 2, r.top + r.height / 2, { count: 10, spread: 130, confetti: false });
     });
-    shelf.appendChild(note);
+    var noteWrap = el("div", "note-wrap");
+    noteWrap.appendChild(note);
+    /* "click me for extra love" hint, with a little arrow up to the note */
+    var noteHint = el("p", "note__hint");
+    noteHint.setAttribute("aria-hidden", "true");
+    noteHint.appendChild(Icons.el("arrow", "note__hint-arrow"));
+    noteHint.appendChild(el("span", null, CFG.shelf.noteHint + " "));
+    noteHint.appendChild(Icons.el("heart", "note__hint-heart"));
+    noteWrap.appendChild(noteHint);
+    shelf.appendChild(noteWrap);
 
     /* ---------- The stack ---------- */
     var wrap = el("div", "stack-wrap");

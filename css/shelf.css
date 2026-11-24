@@ -14,9 +14,14 @@
 }
 
 /* ---------- Floating note ---------- */
+.note-wrap {
+  position: relative;
+  margin: clamp(14px, 3vh, 30px) auto clamp(52px, 7vh, 64px);
+}
 .note {
   position: relative;
-  margin: clamp(14px, 3vh, 30px) auto clamp(26px, 5vh, 46px);
+  display: block;
+  margin: 0;
   padding: 20px 40px 26px 34px;
   border: 0;
   background: none;
@@ -61,6 +66,41 @@
   color: var(--tangerine);
 }
 .note__text { position: relative; display: block; white-space: nowrap; }
+
+/* "click me for extra love" — under the note's right corner */
+.note__hint {
+  position: absolute;
+  right: -4px;
+  top: calc(100% + 6px);
+  display: flex;
+  align-items: flex-start;
+  gap: 2px;
+  margin: 0;
+  font-family: var(--font-hand);
+  font-weight: 600;
+  font-size: 1.2rem;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--rose);
+  transform: rotate(-3deg);
+  pointer-events: none;
+}
+.note__hint-arrow {
+  width: 30px;
+  height: 20px;
+  margin-top: -10px;
+  fill: none;
+  color: var(--rose);
+  transform: scaleY(-1);
+}
+.note__hint span { padding-top: 2px; }
+.note__hint-heart {
+  display: inline-block;
+  width: .7em;
+  height: .64em;
+  margin-left: 1px;
+  fill: var(--cherry);
+}
 
 @keyframes note-bob {
   0%   { transform: translateY(0) rotate(-3deg); }

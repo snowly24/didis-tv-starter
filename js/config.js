@@ -17,7 +17,7 @@ window.DIDI_CONFIG = {
     title: "Didi's TV",
     since: "since 2001",
     lockLine: "[a little something for Didi ♡]",
-    floatingNote: "[happy birthday sunshine]",
+    floatingNote: "[Happy birthday sunshine]",
     // Make this with tools/hash-password.html, then paste the result here.
     // Capitals, spaces, dots, slashes and dashes are ignored when Didi types it.
     passwordHash: "f37681b56f8e730b52230e03dd2082ff51a6710f1b93cd344521f8ac05275558",  // Didi's birthday
@@ -41,6 +41,7 @@ window.DIDI_CONFIG = {
   /* ---------- Words on the Shelf (tape stack) ---------- */
   shelf: {
     pickATape: "pick a tape",
+    noteHint: "click me for extra love",   // small hint under the floating note
     from: "from",            // shown as: from [Friend] ♡
     watched: "watched",      // sticker on tapes already watched
     stereo: "STEREO"         // small print on one of the labels

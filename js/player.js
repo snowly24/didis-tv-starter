@@ -75,7 +75,19 @@
   /* ---------- View ---------- */
   function create(route, app) {
     var view = el("section", "view view--player");
-    var header = Header.create({ onLogo: function () { location.hash = "#/shelf"; } });
+    /* Logo → the video stops, the TV powers off, then the Shelf */
+    var leaving = false;
+    var header = Header.create({
+      onLogo: function () {
+        if (leaving) return;
+        leaving = true;
+        token++;
+        clearTimers();
+        getVideo().pause();
+        tv.clearOsd();
+        tv.powerOff().then(function () { location.hash = "#/shelf"; });
+      }
+    });
     view.appendChild(header.el);
 
     var player = el("div", "player");
@@ -226,6 +238,7 @@
       clearTimers();
       current = tape;
       v.pause();
+      Sound.play("static");
       soundBtn.hidden = true;
       tv.clearOsd();
       paintTapeInfo(tape);
@@ -448,6 +461,7 @@
       clearTimers();
       tv.clearOsd();
       v.currentTime = 0;
+      Sound.play("static");
       tv.channelChange(function () { tv.showVideo(holder); tv.messageBody.replaceChildren(); }, STATIC_MS).then(function () {
         osd("play"); setStatus("play");
         start();

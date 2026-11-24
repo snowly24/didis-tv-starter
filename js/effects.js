@@ -80,5 +80,75 @@
     }
   }
 
-  window.Effects = { burst: burst };
+  /* Tiny sparkles + hearts where a button was clicked */
+  function sparkle(x, y) {
+    if (reducedMotion()) return;
+    for (var i = 0; i < 7; i++) {
+      var isHeart = i % 3 === 0;
+      var el = isHeart ? Icons.el("heart", "fx-heart") : Icons.el("sparkle", "fx-heart");
+      var size = isHeart ? rand(8, 12) : rand(8, 14);
+      el.style.width = size + "px";
+      el.style.height = size + "px";
+      el.style.fill = isHeart ? pick(["var(--cherry)", "var(--rose)"]) : pick(["var(--butter)", "var(--peach)", "var(--rose)"]);
+      el.style.left = x + "px";
+      el.style.top = y + "px";
+      getLayer().appendChild(el);
+      var a = (i / 7) * Math.PI * 2 + rand(-0.3, 0.3);
+      var d = rand(18, 40);
+      el.animate([
+        { transform: "translate(-50%, -50%) scale(.3) rotate(0deg)", opacity: 0 },
+        { transform: "translate(-50%, -50%) translate(" + Math.cos(a) * d * 0.6 + "px," + Math.sin(a) * d * 0.6 + "px) scale(1) rotate(40deg)", opacity: 1, offset: .35 },
+        { transform: "translate(-50%, -50%) translate(" + Math.cos(a) * d + "px," + (Math.sin(a) * d + 8) + "px) scale(.6) rotate(90deg)", opacity: 0 }
+      ], { duration: rand(500, 700), easing: "cubic-bezier(.2, .7, .4, 1)", fill: "forwards" })
+        .finished.then(el.remove.bind(el));
+    }
+  }
+
+  /* It rains hearts (bow easter egg) */
+  function rain() {
+    var w = window.innerWidth, h = window.innerHeight;
+    var count = reducedMotion() ? 10 : 40;
+    for (var i = 0; i < count; i++) {
+      var el = Icons.el("heart", "fx-heart");
+      var size = rand(14, 32);
+      el.style.width = size + "px";
+      el.style.height = size * 0.92 + "px";
+      el.style.fill = pick(["var(--cherry)", "var(--rose)", "var(--blush)", "var(--peach)", "var(--cherry)"]);
+      el.style.left = rand(0, w) + "px";
+      el.style.top = "-40px";
+      getLayer().appendChild(el);
+      var anim;
+      if (reducedMotion()) {
+        el.style.top = rand(40, h - 40) + "px";
+        anim = el.animate([{ opacity: 0 }, { opacity: 1, offset: .3 }, { opacity: 0 }], { duration: 1600, delay: i * 60 });
+      } else {
+        var sway = rand(-60, 60);
+        anim = el.animate([
+          { transform: "translate(0, 0) rotate(0deg)", opacity: 0 },
+          { transform: "translate(" + sway * 0.5 + "px," + h * 0.3 + "px) rotate(" + rand(-30, 30) + "deg)", opacity: 1, offset: .2 },
+          { transform: "translate(" + sway + "px," + (h + 80) + "px) rotate(" + rand(-60, 60) + "deg)", opacity: 1 }
+        ], { duration: rand(2400, 4200), delay: rand(0, 1400), easing: "cubic-bezier(.35, 0, .6, 1)", fill: "both" });
+      }
+      anim.finished.then(el.remove.bind(el));
+    }
+  }
+
+  /* Every button: a soft click sound + tiny sparkles.
+     data-sfx="power|pop|none" picks another sound, data-fx="none" skips sparkles. */
+  document.addEventListener("click", function (e) {
+    var b = e.target && e.target.closest ? e.target.closest("button") : null;
+    if (!b || b.disabled) return;
+    var sfx = b.getAttribute("data-sfx");
+    if (sfx !== "none" && window.Sound) Sound.play(sfx || "click");
+    if (b.getAttribute("data-fx") === "none") return;
+    var x = e.clientX, y = e.clientY;
+    if (!x && !y) {
+      var r = b.getBoundingClientRect();
+      x = r.left + r.width / 2;
+      y = r.top + r.height / 2;
+    }
+    sparkle(x, y);
+  });
+
+  window.Effects = { burst: burst, sparkle: sparkle, rain: rain };
 })();

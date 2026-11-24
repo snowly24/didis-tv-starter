@@ -84,6 +84,11 @@
     '<symbol id="i-fullscreen" viewBox="0 0 24 24">' +
       '<path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M4 9 V4 H9 M15 4 H20 V9 M20 15 V20 H15 M9 20 H4 V15"/>' +
     '</symbol>' +
+    /* Rewind (circular arrow, 24×24) */
+    '<symbol id="i-rewind" viewBox="0 0 24 24">' +
+      '<path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M4.5 12 A7.5 7.5 0 1 0 7 6.4"/>' +
+      '<path d="M3.2 3.6 L8.4 5.2 L4.6 9.2 Z"/>' +
+    '</symbol>' +
     /* Small chevrons for prev / next (16×16) */
     '<symbol id="i-prev" viewBox="0 0 16 16"><path d="M11 2.5 L4 8 L11 13.5 Z"/></symbol>' +
     '<symbol id="i-next" viewBox="0 0 16 16"><path d="M5 2.5 L12 8 L5 13.5 Z"/></symbol>' +

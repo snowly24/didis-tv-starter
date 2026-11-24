@@ -1,0 +1,125 @@
+/* =========================================================
+   View 4 — Credits
+   ========================================================= */
+
+.view--credits { padding-bottom: 40px; }
+
+.credits {
+  --pw: clamp(280px, min(70vw, calc((100vh - 250px) / .98), 860px), 860px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+  padding: calc(var(--pw) * .09) 16px 0;
+}
+@supports (height: 100dvh) {
+  .credits { --pw: clamp(280px, min(70vw, calc((100dvh - 250px) / .98), 860px), 860px); }
+}
+@media (max-width: 700px) {
+  .credits { --pw: calc(100vw - 24px); }
+}
+.credits .tv { --tv-w: var(--pw); }
+
+/* What's on the screen */
+.roll-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: radial-gradient(ellipse 80% 70% at 50% 45%, #3A2725, var(--cocoa-deep));
+  color: var(--cream-light);
+  text-align: center;
+}
+.roll {
+  position: absolute;
+  top: 100%;
+  left: 8%;
+  right: 8%;
+  font-family: var(--font-serif);
+}
+.roll__block { margin-bottom: 11cqw; }
+.roll__role {
+  margin: 0 0 1.4cqw;
+  font-size: max(11px, 2.6cqw);
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--blush);
+}
+.roll__name {
+  margin: 0 0 1cqw;
+  font-style: italic;
+  font-size: max(16px, 5cqw);
+  line-height: 1.15;
+}
+.roll__name--big { font-size: max(24px, 9cqw); }
+
+/* Reduced motion: no roll, everything shown at once */
+.roll.is-still {
+  top: 6%;
+  transform: scale(.62);
+  transform-origin: 50% 0;
+}
+.roll.is-still .roll__block { margin-bottom: 4cqw; }
+.roll.is-still { transition: opacity .6s ease; }
+.roll.is-still.is-done { opacity: 0; }
+
+.roll__end {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 50%;
+  margin: 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: max(20px, 6.4cqw);
+  line-height: 1.15;
+  color: var(--cream-light);
+  text-shadow: 0 0 2cqw rgba(247, 198, 206, .45);
+  opacity: 0;
+  transform: translateY(-50%) scale(.96);
+  transition: opacity 1.2s ease, transform 1.4s var(--ease-out);
+}
+.roll__end.is-visible { opacity: 1; transform: translateY(-50%) scale(1); }
+
+/* "⟲ rewind" washi sticker */
+.credits__rewind {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  gap: .4em;
+  min-height: 48px;
+  padding: .15em 1.3em .2em;
+  border: 0;
+  background: none;
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: var(--cocoa);
+  cursor: pointer;
+  transform: rotate(-2deg);
+  animation: rewind-in .6s var(--ease-spring) both;
+}
+.credits__rewind[hidden] { display: none; }
+.credits__rewind::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 6px 0;
+  background:
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, .4) 0 5px, transparent 5px 10px),
+    var(--blush);
+  clip-path: polygon(2% 0, 98% 0, 100% 16%, 97% 32%, 100% 50%, 96% 68%, 100% 84%, 98% 100%,
+                     2% 100%, 0 84%, 3% 68%, 0 50%, 4% 32%, 0 16%);
+}
+.credits__rewind .icon { width: .8em; height: .8em; }
+.credits__rewind:hover { transform: rotate(0) translateY(-2px); }
+
+@keyframes rewind-in {
+  from { opacity: 0; transform: rotate(-2deg) translateY(8px); }
+  to   { opacity: 1; transform: rotate(-2deg) translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .credits__rewind { animation: none; }
+  .roll__end { transition: opacity .4s ease; }
+}

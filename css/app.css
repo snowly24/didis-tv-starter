@@ -62,26 +62,3 @@ html.is-zooming body { overflow: hidden; }
   will-change: transform, opacity;
 }
 .fx-confetti { border-radius: 2px; }
-
-/* Temporary stand-in for views not built yet */
-.placeholder {
-  display: grid;
-  place-items: center;
-  gap: 16px;
-  padding: 18vh 16px;
-  font-family: var(--font-hand);
-  font-size: 1.4rem;
-  text-align: center;
-  color: var(--cocoa-soft);
-}
-.placeholder p { margin: 0; }
-.placeholder button {
-  min-height: 44px;
-  padding: 6px 18px;
-  border: 1.5px dashed var(--rose);
-  border-radius: 22px;
-  background: var(--cream);
-  font-family: var(--font-hand);
-  font-size: 1.2rem;
-  cursor: pointer;
-}

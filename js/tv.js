@@ -100,6 +100,36 @@
     var q = function (sel) { return el.querySelector(sel); };
     q(".tv__bow").appendChild(Icons.el("bow"));
 
+    /* Easter egg: click the bow 5 times → it rains hearts (not on the mini TV) */
+    if (opts.size !== "mini") {
+      var oldBow = q(".tv__bow");
+      var bow = document.createElement("button");
+      bow.type = "button";
+      bow.className = "tv__bow tv__bow--button";
+      bow.setAttribute("aria-label", CFG.ui.bow);
+      bow.setAttribute("data-sfx", "pop");
+      bow.setAttribute("data-fx", "none");
+      bow.appendChild(oldBow.firstChild);
+      oldBow.replaceWith(bow);
+      var bowClicks = 0, bowTimer = null;
+      bow.addEventListener("click", function (e) {
+        e.stopPropagation();
+        if (!reducedMotion()) {
+          bow.firstChild.animate([
+            { transform: "rotate(0) scale(1)" }, { transform: "rotate(-12deg) scale(1.12)" },
+            { transform: "rotate(9deg) scale(1.05)" }, { transform: "rotate(0) scale(1)" }
+          ], { duration: 420, easing: "ease-out" });
+        }
+        bowClicks++;
+        clearTimeout(bowTimer);
+        bowTimer = setTimeout(function () { bowClicks = 0; }, 2500);
+        if (bowClicks >= 5) {
+          bowClicks = 0;
+          if (window.Effects) Effects.rain();
+        }
+      });
+    }
+
     /* Knob: a real <button> only where it's the power button */
     var knob = document.createElement(opts.powerButton ? "button" : "span");
     knob.className = "tv__knob";

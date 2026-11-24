@@ -26,8 +26,8 @@ Placeholders in `[BRACKETS]` are things I'll fill in later. Build with placehold
   ```
   index.html
   css/        base.css, app.css (view shell, flash, particles), tv.css, header.css,
-              labels.css, lock.css, shelf.css, player.css
-  js/         config.js, app.js (router), lock.js, shelf.js, tv.js, tape.js, header.js, player.js,
+              labels.css, lock.css, shelf.css, player.css, credits.css
+  js/         config.js, app.js (router), lock.js, shelf.js, player.js, credits.js, tv.js, tape.js, header.js,
               effects.js, sound.js, icons.js (SVG sprite), sha256.js (file:// fallback)
   assets/     favicon (all other drawings are SVG symbols in js/icons.js)
   videos/     tape-1.mp4 … tape-7.mp4 + tape-1.jpg … (posters)

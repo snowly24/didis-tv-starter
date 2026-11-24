@@ -62,6 +62,19 @@ window.DIDI_CONFIG = {
     comingSoon: "TAPE {n} — COMING SOON"       // shown if a video file is missing
   },
 
+  /* ---------- End credits (rolling on the TV) ----------
+     Friend names come from the tapes below, in tape order.
+     The "Produced by" name is site.creditsFrom (top of this file). */
+  credits: {
+    starring: "Starring",
+    star: "Didi",
+    withLove: "with love from",
+    producedBy: "Produced by",
+    ending: "happy birthday, sunshine ♡",
+    rewind: "rewind",                 // button back to the Shelf
+    theEnd: "the end"                 // sticker on the Shelf that opens the credits
+  },
+
   /* ---------- VCR on-screen display words (the "PLAY ▸" text) ---------- */
   osd: {
     play: "PLAY",
@@ -88,7 +101,9 @@ window.DIDI_CONFIG = {
     fullscreen: "Full screen",
     seek: "Video position",
     prevTapeLabel: "Previous tape:",
-    nextTapeLabel: "Next tape:"
+    nextTapeLabel: "Next tape:",
+    bow: "A little bow",
+    credits: "Roll the end credits"
   },
 
   /* ---------- The 7 tapes, top of the stack first ----------

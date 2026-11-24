@@ -46,29 +46,6 @@
     return flashAnim.finished;
   }
 
-  /* ---------- Views ---------- */
-  // Temporary stand-in until the Shelf / Player / Credits phases are built.
-  var Placeholder = {
-    create: function (route, app) {
-      var section = document.createElement("section");
-      section.className = "view view--placeholder";
-      var header = Header.create({ onLogo: function () { location.hash = "#/shelf"; } });
-      var box = document.createElement("div");
-      box.className = "placeholder";
-      var note = document.createElement("p");
-      note.textContent = "(" + route.name + (route.id ? " " + route.id : "") + " view — coming in a later phase)";
-      var relock = document.createElement("button");
-      relock.type = "button";
-      relock.textContent = "lock again (for testing)";
-      relock.addEventListener("click", function () { app.lock(); });
-      box.appendChild(note);
-      box.appendChild(relock);
-      section.appendChild(header.el);
-      section.appendChild(box);
-      return { el: section };
-    }
-  };
-
   /* ---------- Full-screen static (channel change between views) ---------- */
   var staticLayer = null;
   function getStatic() {
@@ -90,7 +67,7 @@
     lock: window.LockView,
     shelf: window.ShelfView,
     tape: window.PlayerView,
-    credits: Placeholder
+    credits: window.CreditsView
   };
 
   function mount(route) {
@@ -140,6 +117,7 @@
     /* Static fills the screen, the route changes underneath, static clears */
     staticTo: function (hash) {
       var layer = getStatic();
+      if (window.Sound) Sound.play("static");
       if (reducedMotion()) {
         return fadeFlash(1, 200).then(function () {
           location.hash = hash;

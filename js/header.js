@@ -44,6 +44,7 @@
     var sound = document.createElement("button");
     sound.type = "button";
     sound.className = "sound-toggle";
+    sound.setAttribute("data-sfx", "none");   // Sound.toggle() clicks when turning on
     function paintSound(on) {
       sound.replaceChildren(Icons.el(on ? "sound-on" : "sound-off"));
       sound.setAttribute("aria-pressed", on ? "true" : "false");

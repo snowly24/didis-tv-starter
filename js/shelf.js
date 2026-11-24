@@ -37,6 +37,8 @@
     /* ---------- Floating note ---------- */
     var note = el("button", "note");
     note.type = "button";
+    note.setAttribute("data-sfx", "pop");   // its own hearts instead of sparkles
+    note.setAttribute("data-fx", "none");
     note.appendChild(el("span", "washi note__washi"));
     note.appendChild(Icons.el("sun", "note__sun"));
     note.appendChild(el("span", "note__text", CFG.site.floatingNote));
@@ -85,6 +87,16 @@
       tapes.push(tape);
     });
     wrap.appendChild(list);
+
+    /* "the end" sticker → end credits */
+    var theEnd = el("button", "the-end");
+    theEnd.type = "button";
+    theEnd.setAttribute("aria-label", CFG.ui.credits);
+    theEnd.appendChild(Icons.el("heart", "the-end__heart"));
+    theEnd.appendChild(el("span", "the-end__text", CFG.credits.theEnd));
+    theEnd.addEventListener("click", function () { app.staticTo("#/credits"); });
+    wrap.appendChild(theEnd);
+
     shelf.appendChild(wrap);
     view.appendChild(shelf);
 

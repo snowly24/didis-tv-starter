@@ -140,12 +140,16 @@
       if (mode === "password") { input.focus(); return; }
       if (mode !== "standby") return;
       mode = "password";
+      Sound.play("power");
+      Sound.play("static");
       view.classList.add("is-password");
       tv.channelChange(function () { tv.showMessage(form); }, 450, { early: true });
       input.focus({ preventScroll: true });   // inside the click, so phones open the keyboard
       ensureVisible();
     }
 
+    tv.knob.setAttribute("data-sfx", "none");   // openPassword plays its own sound
+    slot.setAttribute("data-sfx", "none");
     tv.knob.addEventListener("click", openPassword);
     slot.addEventListener("click", openPassword);
     screen.addEventListener("click", function () { if (mode === "standby") openPassword(); });
@@ -172,6 +176,7 @@
 
     function wrong() {
       tries++;
+      Sound.play("static");
       input.value = "";
       syncMirror();
       if (!reducedMotion()) {
@@ -198,6 +203,7 @@
       mode = "done";
       input.blur();
       var r = screen.getBoundingClientRect();
+      Sound.play("pop");
       Effects.burst(r.left + r.width / 2, r.top + r.height / 2, { count: 36, spread: Math.max(220, r.width * 0.75) });
       tv.showMessage(welcome);
 
@@ -212,6 +218,7 @@
       var tape = vcr.querySelector(".vcr__tape");
       vcr.classList.add("is-loading");
       if (reducedMotion()) {
+        Sound.play("clunk");
         vcr.classList.add("is-unlocked");
         return wait(300);
       }
@@ -223,6 +230,7 @@
       ], { duration: 900, easing: "cubic-bezier(.45, 0, .3, 1)", fill: "forwards" });
       return a.finished.then(function () {
         // the "clunk"
+        Sound.play("clunk");
         vcr.querySelector(".vcr__body").animate([
           { transform: "translateY(0)" }, { transform: "translateY(2px)" }, { transform: "translateY(0)" }
         ], { duration: 200, easing: "ease-out" });
@@ -232,6 +240,7 @@
     }
 
     function zoomIntoScreen() {
+      Sound.play("power");
       if (reducedMotion()) return app.flashIn(450);
       var r = screen.getBoundingClientRect();
       var vr = view.getBoundingClientRect();

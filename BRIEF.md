@@ -119,7 +119,7 @@ Use these for style and layout ideas only. **Don't copy any text, titles, logos 
 - The tangerine knob is the power button ("press power" arrow points to it). Clicking the power button, the tape slot or the screen → the **password screen appears on the TV** (ref 07 style): cream screen, serif "enter the password to power on", an input styled like OSD/typewriter text with a blinking underline cursor, and a "▸ PLAY" button. A small "need a hint?" link shows `[HINT]`.
 - **Correct password:** heart/confetti burst → screen shows `[Signal found ♡ Welcome, Didi]` for ~1.5 s → a tape slides into the VCR slot (clunk sound), LED turns green → the screen zooms up to fill the whole window ("going into the TV"), flashes, and the Shelf fades in.
 - **Wrong password:** TV shakes slightly, screen flashes static + `NO SIGNAL` in OSD font, input clears. After 3 wrong tries, show the hint automatically.
-- Enter submits. Input auto-focuses when shown. Compare case-insensitively and trim spaces.
+- Enter submits. Input auto-focuses when shown. Compare case-insensitively, ignoring spaces, dots, slashes and dashes (so `16122001`, `16.12.2001`, `16/12/2001` and `16-12-2001` all work). The stored hash is of the password in that same cleaned-up form; `tools/hash-password.html` cleans it the same way.
 - Save the unlocked state in `sessionStorage`, so a refresh in the same tab doesn't lock again.
 - Store the password as a **SHA-256 hash** in config, not plain text. (This is a cute gate, not real security, and that's fine.)
 

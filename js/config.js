@@ -19,6 +19,7 @@ window.DIDI_CONFIG = {
     lockLine: "[a little something for Didi ♡]",
     floatingNote: "[happy birthday sunshine]",
     // Make this with tools/hash-password.html, then paste the result here.
+    // Capitals, spaces, dots, slashes and dashes are ignored when Didi types it.
     passwordHash: "7900530c4185575df6bb921396daf93162b2a47db17a386d901aab0b0eeb4abc",  // Didi's birthday
     passwordHint: "[HINT]",
     welcomeMessage: "[Signal found ♡ Welcome, Didi]",

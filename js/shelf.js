@@ -61,7 +61,8 @@
     var hint = el("p", "shelf__hint");
     hint.setAttribute("aria-hidden", "true");
     hint.appendChild(el("span", "shelf__hint-text", CFG.shelf.pickATape));
-    hint.appendChild(Icons.el("arrow", "shelf__hint-arrow"));
+    hint.appendChild(Icons.el("arrow", "shelf__hint-arrow shelf__hint-arrow--narrow"));
+    hint.appendChild(Icons.el("arrow-right", "shelf__hint-arrow shelf__hint-arrow--wide"));
     wrap.appendChild(hint);
 
     var list = el("ul", "stack");

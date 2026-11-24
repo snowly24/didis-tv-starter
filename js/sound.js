@@ -4,6 +4,8 @@
    • Starts working after the visitor's first click or key press
      (browsers don't allow sound before that).
    • Off when the header toggle is off (saved in localStorage).
+     The toggle is the site's main sound switch: the Player also
+     mutes the video while it's off.
    • Never plays while a video is playing.
    ========================================================= */
 (function () {
@@ -128,6 +130,10 @@
       listeners.forEach(function (fn) { fn(on); });
     },
     toggle: function () { this.setOn(!on); if (on) play("click"); },
-    onChange: function (fn) { listeners.push(fn); }
+    onChange: function (fn) { listeners.push(fn); },
+    offChange: function (fn) {
+      var i = listeners.indexOf(fn);
+      if (i !== -1) listeners.splice(i, 1);
+    }
   };
 })();

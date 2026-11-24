@@ -109,7 +109,7 @@ Use these for style and layout ideas only. **Don't copy any text, titles, logos 
 - **Center:** "Didi's TV" in the dainty serif, with "since 2001" smaller, in handwriting or on a tiny ribbon banner. A small bow or heart detail.
 - **Right:** "PLAY ▸" with "SP" underneath, as in ref 01: VT323, white with cyan/magenta color split and soft glow. Because white won't read on cream paper, put it inside a small dark rounded "VCR display" chip with faint scanlines. A subtle tracking glitch every ~15 s.
   - On the Player view it mirrors the player state: `PLAY ▸`, `PAUSE ❚❚`, `FF ▸▸`, `REW ◂◂`, `STOP ■`.
-- A small sound on/off toggle (speaker icon) near the right side.
+- A small sound on/off toggle (speaker icon) near the right side. It's the site's main sound switch: off mutes the sound effects **and the video**; on brings both back. The Player's own mute button mutes only the video (unmuting it while the main switch is off turns the switch back on).
 
 ## 4. View 1 — Lock (`#/`)
 
@@ -232,7 +232,7 @@ Tasteful and smooth. Quality over quantity.
 
 - Subtle paper-grain texture on the page (SVG noise).
 - Tiny hearts or sparkles bursting from clicks on interactive elements.
-- **Sound effects made with the Web Audio API** (no audio files): TV power click + soft hum, static hiss on transitions, tape-insert clunk, soft button clicks. Sound is on from the first click (including on the Lock view) unless it was muted on an earlier visit; the header toggle mutes it, and the setting is saved in `localStorage`. Sound effects never play over a video.
+- **Sound effects made with the Web Audio API** (no audio files): TV power click + soft hum, static hiss on transitions, tape-insert clunk, soft button clicks. Sound is on from the first click (including on the Lock view) unless it was muted on an earlier visit; the header toggle mutes it (and the video, see 3.2), and the setting is saved in `localStorage`. Sound effects never play over a video.
 - Heart/confetti burst on unlock (write it yourself, no library).
 - Floating note, idle-floating tapes, occasional OSD glitch.
 - Optional easter egg: click the bow on top of the TV 5 times → it rains hearts.

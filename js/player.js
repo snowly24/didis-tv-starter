@@ -258,7 +258,7 @@
     }
 
     function start() {
-      v.muted = userMuted;
+      v.muted = userMuted || !Sound.isOn();   // header sound switch off = video muted too
       var p = v.play();
       if (!p || !p.catch) return;
       var my = token;
@@ -361,12 +361,32 @@
       var kind = sec < 0 ? "rew" : "ff";
       osd(kind); setStatus(kind, true);
     }
+    /* The mute button under the TV mutes the video only. Unmuting while
+       the header's main sound switch is off turns the switch back on. */
     function toggleMute() {
-      userMuted = !(v.muted || v.volume === 0) ;
-      v.muted = userMuted;
-      if (!userMuted && v.volume === 0) v.volume = 1;
+      var nowMuted = v.muted || v.volume === 0;
+      if (nowMuted) {
+        userMuted = false;
+        if (v.volume === 0) v.volume = 1;
+        if (!Sound.isOn()) Sound.setOn(true);   // → onSoundSetting unmutes
+        v.muted = false;
+      } else {
+        userMuted = true;
+        v.muted = true;
+      }
       soundBtn.hidden = true;
     }
+    /* Header sound switch: off mutes the video, on brings its sound back */
+    function onSoundSetting(isOn) {
+      if (isOn) {
+        userMuted = false;
+        v.muted = false;
+        soundBtn.hidden = true;
+      } else {
+        v.muted = true;
+      }
+    }
+    Sound.onChange(onSoundSetting);
     function fullscreen() {
       if (document.fullscreenElement) { document.exitFullscreen(); return; }
       if (v.requestFullscreen) v.requestFullscreen().catch(function () {});
@@ -382,6 +402,7 @@
       v.volume = Number(vol.value);
       v.muted = v.volume === 0;
       userMuted = v.muted;
+      if (!v.muted && !Sound.isOn()) Sound.setOn(true);
     });
     bar.addEventListener("input", function () {
       seeking = true;
@@ -392,6 +413,7 @@
     soundBtn.addEventListener("click", function (e) {
       e.stopPropagation();
       userMuted = false;
+      if (!Sound.isOn()) Sound.setOn(true);
       v.muted = false;
       soundBtn.hidden = true;
       if (v.paused) v.play().catch(function () {});
@@ -524,6 +546,7 @@
         try { v.currentTime = 0; } catch (e) {}
         Object.keys(on).forEach(function (k) { v.removeEventListener(k, on[k]); });
         document.removeEventListener("keydown", onKey);
+        Sound.offChange(onSoundSetting);
         if (v.parentNode) v.parentNode.removeChild(v);
         document.title = CFG.site.title;
       }

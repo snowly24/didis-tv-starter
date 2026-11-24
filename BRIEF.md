@@ -95,7 +95,7 @@ Use these for style and layout ideas only. **Don't copy any text, titles, logos 
 ### 3.1 The TV (one component, three sizes)
 
 - Built once (HTML/CSS/SVG) and reused: **big** on the Lock view, **mini** as the header logo, **large** on the Player view.
-- Shape based on `08-pink-tv.png`: chunky rounded body in blush pink with soft shading, cream bezel, rounded CRT screen with a subtle bulge (inner shadow + glass highlight), speaker grille on the left, tangerine knob and small round buttons on the right, little feet. Coquette/scrapbook touches: a small bow on top and a heart sticker held on by washi tape in one corner.
+- Shape based on `08-pink-tv.png`: chunky rounded body in blush pink with soft shading, cream bezel, rounded CRT screen with a subtle bulge (inner shadow + glass highlight), speaker grille on the left, tangerine knob and small round buttons on the right, little feet. Coquette touch: a small bow on top. (No heart sticker on the TV.)
 - The screen always keeps a **4:3** ratio.
 - Screen layers, bottom to top: content (video / text / static) → scanlines → vignette + glass glare → OSD text. Overlays use `pointer-events: none`. Overlays stay subtle: faces in videos must remain clearly visible.
 - Screen states: **off** (dark glass with reflection), **standby** (blue screen, ref 06), **static** (animated noise), **message** (cream screen with serif text, ref 07), **on** (video).

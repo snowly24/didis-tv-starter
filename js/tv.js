@@ -62,7 +62,6 @@
   var TEMPLATE =
     '<div class="tv__bow" aria-hidden="true"></div>' +
     '<div class="tv__body">' +
-      '<div class="tv__sticker" aria-hidden="true"><span class="washi"></span></div>' +
       '<div class="tv__bezel">' +
         '<div class="tv__screen">' +
           '<div class="tv__content">' +
@@ -100,7 +99,6 @@
 
     var q = function (sel) { return el.querySelector(sel); };
     q(".tv__bow").appendChild(Icons.el("bow"));
-    q(".tv__sticker").appendChild(Icons.el("heart-sticker"));
 
     /* Knob: a real <button> only where it's the power button */
     var knob = document.createElement(opts.powerButton ? "button" : "span");

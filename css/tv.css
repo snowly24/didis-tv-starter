@@ -423,29 +423,7 @@ button.tv__knob > .tv__hit {
 }
 .tv__bow svg { width: 100%; height: 100%; }
 
-/* ---------- Heart sticker held on with washi tape ---------- */
-.tv__sticker {
-  position: absolute;
-  z-index: 3;
-  top: -1.6cqw;
-  right: 3.6cqw;
-  width: 10cqw;
-  height: 9.2cqw;
-  transform: rotate(11deg);
-  filter: drop-shadow(0 .35cqw .4cqw rgba(62, 39, 37, .22));
-}
-.tv__sticker svg { width: 100%; height: 100%; }
-.tv__sticker .washi {
-  --washi-color: var(--butter);
-  top: -1.2cqw;
-  left: 1.4cqw;
-  width: 8cqw;
-  height: 3cqw;
-  transform: rotate(-18deg);
-}
-
 /* ---------- Mini size: drop the fine details ---------- */
-.tv--mini .tv__sticker,
 .tv--mini .tv__frame,
 .tv--mini .tv__dots i:not(:first-child),
 .tv--mini .tv__osd { display: none; }

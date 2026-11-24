@@ -163,18 +163,20 @@
 .stack .tape:hover .tape__tag,
 .stack .tape:focus-visible .tape__tag {
   opacity: 1;
-  transform: translate(0, -86%) rotate(-3deg);
+  transform: translate(0, calc(-100% - 2px)) rotate(-3deg);   /* fully above the tape */
 }
-/* …and out of the right end when the window has room for it */
-@media (min-width: 980px) {
+/* …and out of the right end when the window has room for it.
+   The tag hangs from the tape's right edge, so all of it shows. */
+@media (min-width: 1180px) {
   .stack .tape__tag {
     top: 50%;
-    right: 3%;
-    transform: translate(0, -50%) rotate(2deg);
+    right: auto;
+    left: calc(100% - 6px);
+    transform: translate(-100%, -50%) rotate(2deg);
   }
   .stack .tape:hover .tape__tag,
   .stack .tape:focus-visible .tape__tag {
-    transform: translate(88%, -50%) rotate(4deg);
+    transform: translate(0, -50%) rotate(4deg);
   }
 }
 

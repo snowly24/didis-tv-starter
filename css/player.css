@@ -388,7 +388,7 @@
 @media (max-width: 900px) {
   .player { --pw: min(calc(100vw - 24px), 640px); }
   .player__stage {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 22px 14px;
     max-width: var(--pw);
   }
@@ -409,7 +409,8 @@
   }
   .side-tape .tape:hover,
   .side-tape .tape:focus-visible { transform: translateY(-4px); }
-  .side-tape .tape__shell { aspect-ratio: 5 / 1; min-height: 44px; }
+  /* min-width: 0 stops the 44px min height from forcing a 220px width (5 × 44) */
+  .side-tape .tape__shell { aspect-ratio: 5 / 1; min-height: 44px; width: 100%; min-width: 0; }
   .side-tape__title { display: none; }   /* the label already shows the title */
 }
 

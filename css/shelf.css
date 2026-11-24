@@ -1,0 +1,224 @@
+/* =========================================================
+   View 2 — Shelf
+   ========================================================= */
+
+.view--shelf { padding-bottom: 72px; }
+
+.shelf {
+  --tape-w: min(92vw, 580px);
+  width: var(--tape-w);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ---------- Floating note ---------- */
+.note {
+  position: relative;
+  margin: clamp(14px, 3vh, 30px) auto clamp(26px, 5vh, 46px);
+  padding: 20px 40px 26px 34px;
+  border: 0;
+  background: none;
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: clamp(1.7rem, 5vw, 2.4rem);
+  line-height: 1.05;
+  color: var(--cocoa);
+  cursor: pointer;
+  filter: drop-shadow(0 6px 8px rgba(62, 39, 37, .14));
+  transform: rotate(-3deg);
+  animation: note-bob 6s ease-in-out infinite;
+  -webkit-tap-highlight-color: transparent;
+}
+/* The paper, with a torn bottom edge */
+.note::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 80% 60% at 30% 20%, rgba(255, 255, 255, .45), transparent 70%),
+    linear-gradient(175deg, #FFF1BF, var(--butter));
+  clip-path: polygon(0 0, 100% 0, 100% 90%, 96% 96%, 91% 90%, 85% 97%, 79% 91%, 72% 98%, 66% 92%,
+                     59% 97%, 52% 91%, 45% 98%, 38% 92%, 31% 97%, 24% 91%, 17% 97%, 10% 92%, 4% 97%, 0 91%);
+}
+.note__washi.washi {
+  --washi-color: var(--rose);
+  top: -10px;
+  left: 50%;
+  width: 78px;
+  height: 22px;
+  margin-left: -39px;
+  transform: rotate(-4deg);
+}
+.note__sun {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 26px;
+  height: 26px;
+  color: var(--tangerine);
+}
+.note__text { position: relative; display: block; white-space: nowrap; }
+
+@keyframes note-bob {
+  0%   { transform: translateY(0) rotate(-3deg); }
+  25%  { transform: translateY(-5px) rotate(-1.6deg); }
+  50%  { transform: translateY(-2px) rotate(-3.6deg); }
+  75%  { transform: translateY(-6px) rotate(-2.2deg); }
+  100% { transform: translateY(0) rotate(-3deg); }
+}
+
+/* ---------- Stack ---------- */
+.stack-wrap {
+  position: relative;
+  width: 100%;
+}
+.stack {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.stack__item {
+  position: relative;
+  z-index: calc(20 - var(--i));
+  transform: translateX(calc(var(--ox) * var(--ox-scale, 1))) rotate(var(--rot));
+}
+.stack__item + .stack__item { margin-top: 5px; }
+.stack__item:hover,
+.stack__item:focus-within { z-index: 30; }
+
+.stack__float {
+  animation: tape-float var(--dur) ease-in-out var(--delay) infinite alternate;
+}
+@keyframes tape-float {
+  from { transform: translateY(0); }
+  to   { transform: translateY(var(--amp)); }
+}
+
+/* Hover / keyboard focus: slide out, lift, straighten */
+.stack .tape {
+  transition: transform .28s var(--ease-spring);
+}
+.stack .tape:hover,
+.stack .tape:focus-visible {
+  transform: translate(20px, -4px) rotate(calc(var(--rot) * -1));
+}
+.stack .tape:focus-visible { outline-offset: 6px; }
+
+/* Bigger soft shadow on lift (fades in) */
+.stack .tape__shell::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 20% 2% -8% 2%;
+  border-radius: 2cqw;
+  box-shadow: 0 2cqw 3.5cqw rgba(62, 39, 37, .38);
+  opacity: 0;
+  transition: opacity .28s ease;
+}
+.stack .tape:hover .tape__shell::after,
+.stack .tape:focus-visible .tape__shell::after { opacity: 1; }
+
+/* Tag peeks out: upwards from the top-right corner by default… */
+.stack .tape__tag {
+  top: 0;
+  right: 5%;
+  transform: translate(0, 10%) rotate(-3deg);
+}
+.stack .tape:hover .tape__tag,
+.stack .tape:focus-visible .tape__tag {
+  opacity: 1;
+  transform: translate(0, -86%) rotate(-3deg);
+}
+/* …and out of the right end when the window has room for it */
+@media (min-width: 980px) {
+  .stack .tape__tag {
+    top: 50%;
+    right: 3%;
+    transform: translate(0, -50%) rotate(2deg);
+  }
+  .stack .tape:hover .tape__tag,
+  .stack .tape:focus-visible .tape__tag {
+    transform: translate(88%, -50%) rotate(4deg);
+  }
+}
+
+/* The other tapes dim slightly */
+.stack .tape::after {
+  content: "";
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+  border-radius: 1cqw;
+  background: var(--paper);
+  opacity: 0;
+  transition: opacity .25s ease;
+  pointer-events: none;
+}
+.stack:has(.tape:hover, .tape:focus-visible) .tape:not(:hover):not(:focus-visible)::after,
+.view--shelf.is-opening .stack .tape:not(.is-leaving)::after { opacity: .38; }
+
+/* ---------- "pick a tape" hint ---------- */
+.shelf__hint {
+  position: absolute;
+  right: calc(100% + 18px);
+  top: -6px;
+  margin: 0;
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--rose);
+  transform: rotate(-6deg);
+  pointer-events: none;
+}
+.shelf__hint-text { display: block; }
+.shelf__hint-arrow {
+  display: block;
+  width: 56px;
+  height: 38px;
+  margin: 4px 0 0 auto;
+  fill: none;
+  color: var(--rose);
+  transform: scaleX(-1) rotate(-10deg);
+}
+
+/* No room on the left: hint sits above the stack instead */
+@media (max-width: 1000px) {
+  .shelf__hint {
+    position: relative;
+    right: auto;
+    top: auto;
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    width: fit-content;
+    margin: 0 0 12px 4px;
+    font-size: 1.35rem;
+    transform: rotate(-3deg);
+  }
+  .shelf__hint-arrow {
+    width: 34px;
+    height: 26px;
+    margin: 0;
+    transform: scaleX(-1) rotate(-30deg) translateY(8px);
+  }
+}
+
+/* Touch / narrow: more room between tapes (the name is inside the label) */
+@media (hover: none), (max-width: 700px) {
+  .stack__item + .stack__item { margin-top: 9px; }
+}
+/* Phones: smaller hand-stacked offsets so no tape touches the screen edge */
+@media (max-width: 700px) {
+  .stack { --ox-scale: .4; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .note,
+  .stack__float { animation: none; }
+  .stack .tape { transition: none; }
+}

@@ -20,6 +20,33 @@ html.is-zooming body { overflow: hidden; }
   background: radial-gradient(ellipse at center, #FFFFFF 0%, #FFFBF4 55%, var(--paper) 100%);
 }
 
+/* Full-screen static between views */
+.static-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 880;
+  overflow: hidden;
+  pointer-events: none;
+  background: #2C2423;
+  opacity: 0;
+  visibility: hidden;
+}
+.static-overlay.is-on { visibility: visible; }
+.static-overlay__noise {
+  position: absolute;
+  inset: -50%;
+  background-image: var(--tv-noise, none);
+  background-size: 200px 200px;
+}
+.static-overlay.is-on .static-overlay__noise { animation: tv-noise .32s steps(1) infinite; }
+.static-overlay__track {
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 14%;
+  background: linear-gradient(transparent, rgba(255, 246, 234, .25) 45%, rgba(255, 246, 234, .08) 60%, transparent);
+}
+.static-overlay.is-on .static-overlay__track { animation: tv-track 1s linear infinite; }
+
 /* Hearts + confetti */
 .fx-layer {
   position: fixed;

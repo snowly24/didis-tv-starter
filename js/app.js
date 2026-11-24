@@ -69,9 +69,26 @@
     }
   };
 
+  /* ---------- Full-screen static (channel change between views) ---------- */
+  var staticLayer = null;
+  function getStatic() {
+    if (!staticLayer) {
+      TV.makeNoise();
+      staticLayer = document.createElement("div");
+      staticLayer.className = "static-overlay";
+      staticLayer.setAttribute("aria-hidden", "true");
+      staticLayer.innerHTML = '<div class="static-overlay__noise"></div><div class="static-overlay__track"></div>';
+      document.body.appendChild(staticLayer);
+    }
+    return staticLayer;
+  }
+  function reducedMotion() {
+    return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
+
   var VIEWS = {
     lock: window.LockView,
-    shelf: Placeholder,
+    shelf: window.ShelfView,
     tape: Placeholder,
     credits: Placeholder
   };
@@ -114,6 +131,29 @@
       current = null;
       location.hash = "#/";
       render();
+    },
+    /* Static fills the screen, the route changes underneath, static clears */
+    staticTo: function (hash) {
+      var layer = getStatic();
+      if (reducedMotion()) {
+        return fadeFlash(1, 200).then(function () {
+          location.hash = hash;
+          return fadeFlash(0, 300);
+        });
+      }
+      layer.classList.add("is-on");
+      var fadeIn = layer.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 120, fill: "forwards" });
+      return fadeIn.finished.then(function () {
+        location.hash = hash;
+        return new Promise(function (r) { setTimeout(r, 380); });
+      }).then(function () {
+        var fadeOut = layer.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 220, fill: "forwards" });
+        fadeIn.cancel();
+        return fadeOut.finished.then(function () {
+          layer.classList.remove("is-on");
+          fadeOut.cancel();
+        });
+      });
     },
     flashIn: function (ms) { return fadeFlash(1, ms || 300); },
     flashOut: function (ms) { return fadeFlash(0, ms || 500); }

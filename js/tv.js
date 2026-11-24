@@ -290,6 +290,7 @@
 
   window.TV = {
     create: function (opts) { return new TVInstance(opts); },
+    makeNoise: makeNoise,
     osdLabel: osdLabel,
     wait: wait
   };

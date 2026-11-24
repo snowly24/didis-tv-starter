@@ -38,6 +38,14 @@ window.DIDI_CONFIG = {
     tapeSlot: "Tape slot"        // read aloud by screen readers
   },
 
+  /* ---------- Words on the Shelf (tape stack) ---------- */
+  shelf: {
+    pickATape: "pick a tape",
+    from: "from",            // shown as: from [Friend] ♡
+    watched: "watched",      // sticker on tapes already watched
+    stereo: "STEREO"         // small print on one of the labels
+  },
+
   /* ---------- VCR on-screen display words (the "PLAY ▸" text) ---------- */
   osd: {
     play: "PLAY",

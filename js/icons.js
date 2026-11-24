@@ -113,6 +113,22 @@
       '<path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="M4 41 C8 45 11 49 13 55 C17 50 21 46 27 43"/>' +
     '</symbol>' +
 
+    /* Hand-drawn star doodle (stroke only) */
+    '<symbol id="i-doodle-star" viewBox="0 0 40 40">' +
+      '<path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M20 4 L24.5 15.5 L36 15 L26.5 22.5 L30.5 34.5 L20 27 L9.5 34 L13.5 22.5 L4 15.5 L15.5 15.2 Z"/>' +
+    '</symbol>' +
+
+    /* Sun doodle */
+    '<symbol id="i-sun" viewBox="0 0 40 40">' +
+      '<circle cx="20" cy="20" r="7.5" style="fill:var(--butter)" stroke="currentColor" stroke-width="1.8"/>' +
+      '<path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M20 3 V8 M20 32 V37 M3 20 H8 M32 20 H37 M8 8 L11.5 11.5 M28.5 28.5 L32 32 M8 32 L11.5 28.5 M28.5 11.5 L32 8"/>' +
+    '</symbol>' +
+
+    /* Slightly uneven hand-drawn rectangle (stretches to fit) */
+    '<symbol id="i-wobble-rect" viewBox="0 0 200 40" preserveAspectRatio="none">' +
+      '<path fill="none" stroke="currentColor" stroke-width="1.3" vector-effect="non-scaling-stroke" stroke-linejoin="round" d="M3 4.5 C50 2.5 120 5 197 3.2 C198.3 15 196.4 27 197.8 36.6 C130 38.2 70 36 3.2 37.8 C1.8 27 4 14 3 4.5 Z"/>' +
+    '</symbol>' +
+
     /* Tall hooked arrow: comes up from below, curls left at the top */
     '<symbol id="i-arrow-hook" viewBox="0 0 40 130" preserveAspectRatio="none">' +
       '<path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" d="M24 128 C31 100 36 62 33 34 C31 20 24 13 10 11"/>' +

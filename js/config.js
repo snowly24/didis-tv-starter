@@ -21,7 +21,7 @@ window.DIDI_CONFIG = {
     // Make this with tools/hash-password.html, then paste the result here.
     // Capitals, spaces, dots, slashes and dashes are ignored when Didi types it.
     passwordHash: "f37681b56f8e730b52230e03dd2082ff51a6710f1b93cd344521f8ac05275558",  // Didi's birthday
-    passwordHint: "[HINT]",
+    passwordHint: "Your birthday ;)",
     welcomeMessage: "[Signal found ♡ Welcome, Didi]",
     creditsFrom: "[my name]"
   },

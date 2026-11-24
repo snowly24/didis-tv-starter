@@ -63,8 +63,8 @@
       d.appendChild(icon("wobble-rect", "deco-border"));
       d.appendChild(icon("flower", "deco-flower"));
     },
-    "gingham-stitch": function (d) {
-      d.appendChild(icon("cherries", "deco-cherries"));
+    "gingham-stitch": function () {
+      /* cherries sit in the label row next to the year — added below */
     }
   };
 
@@ -92,6 +92,7 @@
 
     label.appendChild(deco);
     label.appendChild(text);
+    if (tape.labelStyle === "gingham-stitch") label.appendChild(icon("cherries", "deco-cherries"));
     label.appendChild(el("span", "tape__year", tape.year));
     shell.appendChild(label);
 

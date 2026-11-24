@@ -71,6 +71,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: var(--pw);
+  /* lets the controls react to the TV's width, not the window's */
+  container-type: inline-size;
+  container-name: player-center;
 }
 .player__center .tv { --tv-w: var(--pw); }
 
@@ -414,20 +418,23 @@
   .side-tape__title { display: none; }   /* the label already shows the title */
 }
 
-/* Phones: controls on two rows */
+/* Phones: a bit more room for the strip */
 @media (max-width: 640px) {
   .player__navbtn { font-size: 1.25rem; }
-  .vcr-controls {
-    flex-wrap: wrap;
-    gap: 10px 8px;
-    width: var(--pw);
-    padding: 10px 10px 12px;
-  }
+  .vcr-controls { width: var(--pw); padding: 10px 10px 12px; }
+}
+/* Whenever the TV is too small for one row (phones, or a short desktop
+   window): buttons on top, progress bar + time on a second row */
+@container player-center (max-width: 720px) {
+  .vcr-controls { flex-wrap: wrap; gap: 10px 8px; }
   .vcr-controls__bar { order: 3; flex-basis: 100%; }
   .vcr-controls__extra { margin-left: auto; }
   .vtime { font-size: 1.2rem; }
 }
-@media (hover: none), (max-width: 640px) {
+@container player-center (max-width: 440px) {
+  .vvol { display: none; }
+}
+@media (hover: none) {
   .vvol { display: none; }
 }
 

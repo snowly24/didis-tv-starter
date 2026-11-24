@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>TV test page — Didi's TV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Caveat:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Shrikhand&family=Special+Elite&family=VT323&display=swap">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/tv.css">
+  <link rel="stylesheet" href="../css/header.css">
+  <style>
+    /* Test-page-only layout — not part of the site */
+    main { max-width: 1180px; margin: 0 auto; padding: 8px 20px 80px; }
+    .t-section { margin-top: 56px; }
+    .t-h2 { font-family: var(--font-hand); font-weight: 700; font-size: 2rem; margin: 0 0 6px; }
+    .t-note { font-family: var(--font-hand); font-size: 1.25rem; margin: 0 0 28px; color: var(--cocoa-soft); }
+    .t-grid { display: flex; flex-wrap: wrap; gap: 56px 40px; justify-content: center; align-items: flex-end; }
+    .t-cell { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+    #states .tv { --tv-w: min(80vw, 300px); }
+    .t-cap { font-family: var(--font-hand); font-size: 1.35rem; font-weight: 600; }
+    .t-play { display: flex; flex-wrap: wrap; gap: 40px; align-items: center; justify-content: center; }
+    .t-buttons { display: flex; flex-wrap: wrap; gap: 10px; max-width: 360px; }
+    .t-buttons button {
+      min-height: 44px; padding: 6px 16px; border: 0; border-radius: 22px; cursor: pointer;
+      font-family: var(--font-hand); font-size: 1.3rem; font-weight: 600;
+      background: var(--cream); box-shadow: 0 2px 0 var(--cream-deep), 0 3px 8px rgba(62,39,37,.12);
+    }
+    .t-buttons button:hover { background: var(--blush); }
+    .t-buttons button:active { transform: translateY(2px); box-shadow: 0 0 0 var(--cream-deep); }
+    .t-sizes { display: flex; flex-direction: column; align-items: center; gap: 64px; }
+    /* Fake "video" for the on state: color bars test card */
+    .test-card { position: absolute; inset: 0; display: grid; place-items: center;
+      background: linear-gradient(90deg, #EDE6DA 0 14.28%, #F3D85F 0 28.56%, #5CD6CF 0 42.84%, #6CC46A 0 57.12%, #D45BA5 0 71.4%, #D9474E 0 85.68%, #4155C9 0); }
+    .test-card span { font-family: var(--font-osd); font-size: 9cqw; color: #fff; background: rgba(42,26,25,.75); padding: .2em .6em; }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="t-section">
+      <h2 class="t-h2">1 · The five screen states</h2>
+      <p class="t-note">off · standby · static · message · on (fake color bars in place of a video)</p>
+      <div class="t-grid" id="states"></div>
+    </section>
+
+    <section class="t-section">
+      <h2 class="t-h2">2 · Animations</h2>
+      <p class="t-note">try each button. The header chip at the top mirrors the OSD buttons.</p>
+      <div class="t-play">
+        <div id="demo"></div>
+        <div class="t-buttons" id="controls"></div>
+      </div>
+    </section>
+
+    <section class="t-section">
+      <h2 class="t-h2">3 · Sizes</h2>
+      <p class="t-note">mini (header logo) · big (Lock view) · large (Player view)</p>
+      <div class="t-sizes" id="sizes"></div>
+    </section>
+  </main>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/icons.js"></script>
+  <script src="../js/sound.js"></script>
+  <script src="../js/tv.js"></script>
+  <script src="../js/header.js"></script>
+  <script>
+    (function () {
+      var CFG = window.DIDI_CONFIG;
+
+      /* Header */
+      var header = Header.create({ onLogo: function () { alert("Logo → Shelf (from Phase 3)"); } });
+      document.body.insertBefore(header.el, document.querySelector("main"));
+
+      function testCard(text) {
+        var d = document.createElement("div");
+        d.className = "test-card";
+        var s = document.createElement("span");
+        s.textContent = text;
+        d.appendChild(s);
+        return d;
+      }
+      function passwordMessage() {
+        var wrap = document.createElement("div");
+        var small = document.createElement("p");
+        small.className = "tv-msg__small";
+        small.textContent = CFG.lock.passwordPrompt;
+        var big = document.createElement("p");
+        big.className = "tv-msg__big";
+        big.textContent = CFG.site.title;
+        var accent = document.createElement("p");
+        accent.className = "tv-msg__accent";
+        accent.textContent = CFG.site.since;
+        wrap.append(small, big, accent);
+        return wrap;
+      }
+
+      /* 1 · States */
+      var states = document.getElementById("states");
+      function cell(label, setup) {
+        var c = document.createElement("div");
+        c.className = "t-cell";
+        var tv = TV.create({ size: "big" });
+        setup(tv);
+        var cap = document.createElement("div");
+        cap.className = "t-cap";
+        cap.textContent = label;
+        c.append(tv.el, cap);
+        states.appendChild(c);
+      }
+      cell("off", function (tv) { tv.turnOff(); });
+      cell("standby", function (tv) { tv.showStandby(CFG.lock.standbyText); });
+      cell("static", function (tv) { tv.showStatic(); });
+      cell("message", function (tv) { tv.showMessage(passwordMessage()); });
+      cell("on", function (tv) { tv.showVideo(testCard("TAPE 1")); tv.osd("play", { duration: 0 }); });
+
+      /* 2 · Animations */
+      var demo = TV.create({ size: "big", powerButton: true });
+      document.getElementById("demo").appendChild(demo.el);
+      demo.showStandby(CFG.lock.standbyText);
+      var channel = 1;
+      demo.knob.addEventListener("click", function () {
+        if (demo.state === "off") demo.powerOn(function () { demo.showStandby(CFG.lock.standbyText); });
+        else demo.powerOff();
+      });
+
+      var controls = document.getElementById("controls");
+      function btn(label, fn) {
+        var b = document.createElement("button");
+        b.type = "button";
+        b.textContent = label;
+        b.addEventListener("click", fn);
+        controls.appendChild(b);
+      }
+      btn("power on", function () {
+        demo.powerOn(function () { demo.showVideo(testCard("TAPE " + channel)); });
+      });
+      btn("power off", function () { demo.powerOff(); });
+      btn("channel change", function () {
+        channel = channel % 6 + 1;
+        demo.channelChange(function () { demo.showVideo(testCard("TAPE " + channel)); }, 550)
+          .then(function () { demo.osd("play"); header.setStatus("play"); });
+      });
+      btn("standby", function () { demo.showStandby(CFG.lock.standbyText); });
+      btn("message", function () { demo.showMessage(passwordMessage()); });
+      btn("no signal", function () {
+        demo.channelChange(function () { demo.showStatic(); }, 300);
+        demo.osd(document.createTextNode(CFG.lock.noSignal), { duration: 1500 });
+      });
+      ["play", "pause", "ff", "rew", "stop"].forEach(function (k) {
+        btn("OSD " + CFG.osd[k], function () { demo.osd(k); header.setStatus(k); });
+      });
+      btn("glitch chip", function () {
+        var chip = document.querySelector(".vcr-chip");
+        chip.classList.add("is-glitching");
+        setTimeout(function () { chip.classList.remove("is-glitching"); }, 450);
+      });
+
+      /* 3 · Sizes */
+      var sizes = document.getElementById("sizes");
+      ["mini", "big", "large"].forEach(function (size) {
+        var c = document.createElement("div");
+        c.className = "t-cell";
+        var tv = TV.create({ size: size });
+        if (size === "mini") tv.showMessage(Icons.el("heart", "tv-msg__heart"));
+        else tv.showVideo(testCard(size.toUpperCase()));
+        var cap = document.createElement("div");
+        cap.className = "t-cap";
+        cap.textContent = size;
+        c.append(tv.el, cap);
+        sizes.appendChild(c);
+      });
+    })();
+  </script>
+</body>
+</html>

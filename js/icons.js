@@ -151,12 +151,6 @@
       '<path fill="none" stroke="currentColor" stroke-width="1.3" vector-effect="non-scaling-stroke" stroke-linejoin="round" d="M3 4.5 C50 2.5 120 5 197 3.2 C198.3 15 196.4 27 197.8 36.6 C130 38.2 70 36 3.2 37.8 C1.8 27 4 14 3 4.5 Z"/>' +
     '</symbol>' +
 
-    /* Hand-drawn arrow: drops down, then curves to point right */
-    '<symbol id="i-arrow-right" viewBox="0 0 70 50">' +
-      '<path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="M8 3 C5 20 13 35 36 38.5 C45 39.8 54 38.6 63 35.5"/>' +
-      '<path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="M54 28.5 C58 31 61 33.3 64 35.5 C60.2 37.6 57.3 40.5 54.8 44"/>' +
-    '</symbol>' +
-
     /* Tall hooked arrow: comes up from below, curls left at the top */
     '<symbol id="i-arrow-hook" viewBox="0 0 40 130" preserveAspectRatio="none">' +
       '<path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" d="M24 128 C31 100 36 62 33 34 C31 20 24 13 10 11"/>' +

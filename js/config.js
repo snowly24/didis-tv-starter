@@ -47,6 +47,21 @@ window.DIDI_CONFIG = {
     stereo: "STEREO"         // small print on one of the labels
   },
 
+  /* ---------- Words on the Player (watching a tape) ---------- */
+  player: {
+    prevTape: "prev tape",
+    nextTape: "next tape",
+    nextUp: "next tape",                       // end card: "next tape: [title]"
+    playNow: "play now",
+    stay: "stay here",
+    watchAgain: "watch again",
+    countdown: "starting in {s}",              // {s} = seconds left
+    allWatched: "you've watched every tape ♡",
+    toCredits: "roll the credits",
+    tapForSound: "TAP FOR SOUND",
+    comingSoon: "TAPE {n} — COMING SOON"       // shown if a video file is missing
+  },
+
   /* ---------- VCR on-screen display words (the "PLAY ▸" text) ---------- */
   osd: {
     play: "PLAY",
@@ -62,7 +77,18 @@ window.DIDI_CONFIG = {
     allTapes: "All tapes",
     power: "Power",
     soundOn: "Sound is on — turn off",
-    soundOff: "Sound is off — turn on"
+    soundOff: "Sound is off — turn on",
+    rewind: "Back 10 seconds",
+    forward: "Forward 10 seconds",
+    play: "Play",
+    pause: "Pause",
+    mute: "Mute",
+    unmute: "Unmute",
+    volume: "Volume",
+    fullscreen: "Full screen",
+    seek: "Video position",
+    prevTapeLabel: "Previous tape:",
+    nextTapeLabel: "Next tape:"
   },
 
   /* ---------- The 7 tapes, top of the stack first ----------

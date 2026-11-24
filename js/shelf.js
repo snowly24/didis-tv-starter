@@ -95,6 +95,7 @@
       opening = true;
       view.classList.add("is-opening");
       btn.classList.add("is-leaving");
+      if (window.Player) Player.prime(cfg);   // inside the click: lets phones play with sound
       var target = "#/tape/" + cfg.id;
       if (reducedMotion()) { app.staticTo(target); return; }
       var rot = getComputedStyle(btn.closest(".stack__item")).getPropertyValue("--rot").trim() || "0deg";

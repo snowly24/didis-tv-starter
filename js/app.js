@@ -89,7 +89,7 @@
   var VIEWS = {
     lock: window.LockView,
     shelf: window.ShelfView,
-    tape: Placeholder,
+    tape: window.PlayerView,
     credits: Placeholder
   };
 
@@ -113,6 +113,11 @@
       return;
     }
     if (current && current.name === route.name && current.id === route.id) return;
+    // Same view, different tape: let the Player switch tapes itself (channel change)
+    if (current && current.name === route.name && current.instance.update && current.instance.update(route)) {
+      current.id = route.id;
+      return;
+    }
     mount(route);
   }
 

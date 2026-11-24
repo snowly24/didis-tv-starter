@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Placeholder videos — Didi's TV</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital@0;1&family=VT323&display=swap">
+  <link rel="stylesheet" href="../css/base.css">
+  <style>
+    main { max-width: 760px; margin: 0 auto; padding: 44px 20px 80px; }
+    h1 { font-family: var(--font-hand); font-size: 2.2rem; margin: 0 0 8px; }
+    p, li { font-family: var(--font-serif); line-height: 1.55; }
+    button {
+      min-height: 44px; padding: 6px 20px; border: 0; border-radius: 22px; cursor: pointer;
+      font-family: var(--font-hand); font-size: 1.35rem; font-weight: 700; background: var(--blush);
+    }
+    button:hover:not(:disabled) { background: var(--rose); color: #fff; }
+    button:disabled { opacity: .5; cursor: default; }
+    #status { font-family: var(--font-osd); font-size: 1.3rem; margin: 16px 0; min-height: 1.5em; }
+    #preview { display: block; max-width: 100%; max-height: 300px; margin: 14px 0; background: var(--cocoa-deep); }
+    #files { list-style: none; padding: 0; }
+    #files li { display: flex; gap: 14px; align-items: center; padding: 6px 0; border-bottom: 1px dashed var(--blush-deep); }
+    #files a { font-family: var(--font-osd); font-size: 1.25rem; color: var(--cherry); }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>placeholder video maker</h1>
+    <p>Makes a 12-second test video and a poster image for every tape in <code>js/config.js</code>
+       (tape 3 is portrait, to test phone videos). Press the button, keep this tab open and visible,
+       then save each file into the project's <code>videos/</code> folder with the name shown.</p>
+    <button type="button" id="make">make placeholder videos</button>
+    <p id="status" aria-live="polite"></p>
+    <canvas id="preview" width="1280" height="720"></canvas>
+    <ul id="files"></ul>
+  </main>
+
+  <script src="../js/config.js"></script>
+  <script>
+    (function () {
+      var SECONDS = 12;
+      var PORTRAIT_TAPE = 3;
+      var BARS = ["#F8EBD3", "#FBDF7E", "#7FD6C9", "#9FBF7A", "#EC7F94", "#D63A55", "#2F4BD8"];
+      var NOTES = [523.25, 587.33, 659.25, 783.99, 659.25, 587.33]; // a soft little loop
+
+      function mimeType() {
+        var options = ["video/mp4;codecs=avc1.42E01E,mp4a.40.2", "video/mp4", "video/webm;codecs=vp8,opus"];
+        for (var i = 0; i < options.length; i++) {
+          if (window.MediaRecorder && MediaRecorder.isTypeSupported(options[i])) return options[i];
+        }
+        return "";
+      }
+
+      function heart(ctx, x, y, s, color) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.scale(s / 100, s / 100);
+        ctx.beginPath();
+        ctx.moveTo(50, 88);
+        ctx.bezierCurveTo(20, 66, 4, 48, 4, 30);
+        ctx.bezierCurveTo(4, 16, 15, 6, 28, 6);
+        ctx.bezierCurveTo(38, 6, 46, 12, 50, 20);
+        ctx.bezierCurveTo(54, 12, 62, 6, 72, 6);
+        ctx.bezierCurveTo(85, 6, 96, 16, 96, 30);
+        ctx.bezierCurveTo(96, 48, 80, 66, 50, 88);
+        ctx.fillStyle = color;
+        ctx.fill();
+        ctx.restore();
+      }
+
+      function draw(ctx, w, h, n, t) {
+        var barsH = h * 0.62;
+        var bw = w / BARS.length;
+        BARS.forEach(function (c, i) { ctx.fillStyle = c; ctx.fillRect(Math.floor(i * bw), 0, Math.ceil(bw), barsH); });
+        ctx.fillStyle = "#3E2725";
+        ctx.fillRect(0, barsH, w, h - barsH);
+        // warm grey ramp
+        for (var i = 0; i < 8; i++) {
+          var v = 40 + i * 28;
+          ctx.fillStyle = "rgb(" + v + "," + Math.round(v * .93) + "," + Math.round(v * .88) + ")";
+          ctx.fillRect(i * w / 8, barsH, w / 8 + 1, h * 0.06);
+        }
+        // center plate
+        var pw = Math.min(w * 0.7, 760), ph = Math.min(h * 0.26, 220);
+        var px = (w - pw) / 2, py = barsH / 2 - ph / 2;
+        ctx.fillStyle = "rgba(42,26,25,.86)";
+        ctx.fillRect(px, py, pw, ph);
+        ctx.fillStyle = "#FFFFFF";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.font = Math.round(ph * 0.52) + "px VT323, monospace";
+        ctx.fillText("TAPE " + n, w / 2, py + ph * 0.42);
+        ctx.font = Math.round(ph * 0.17) + "px VT323, monospace";
+        ctx.fillStyle = "#FBDF7E";
+        ctx.fillText("PLACEHOLDER VIDEO", w / 2, py + ph * 0.8);
+        // bouncing heart
+        var lane = barsH + h * 0.1;
+        var travel = w - 140;
+        var pos = (Math.sin(t * 1.6) * 0.5 + 0.5) * travel + 20;
+        heart(ctx, pos, lane, Math.min(100, h * 0.12), "#EC7F94");
+        // timecode + progress
+        var secs = Math.floor(t);
+        var tc = "00:" + ("0" + secs).slice(-2) + ":" + ("0" + Math.floor((t % 1) * 30)).slice(-2);
+        ctx.font = Math.round(Math.min(w, h) * 0.07) + "px VT323, monospace";
+        ctx.fillStyle = "#FFFFFF";
+        ctx.textAlign = "left";
+        ctx.fillText("PLAY ▸  " + tc, 30, h - Math.min(w, h) * 0.07);
+        ctx.fillStyle = "#EC7F94";
+        ctx.fillRect(0, h - 10, w * Math.min(1, t / SECONDS), 10);
+      }
+
+      /* Records one placeholder. Resolves { video: Blob, poster: Blob, ext } */
+      function makeOne(n, preview) {
+        var portrait = n === PORTRAIT_TAPE;
+        var w = portrait ? 720 : 1280, h = portrait ? 1280 : 720;
+        var canvas = document.createElement("canvas");
+        canvas.width = w; canvas.height = h;
+        var ctx = canvas.getContext("2d");
+        var pctx = preview.getContext("2d");
+
+        var audio = new (window.AudioContext || window.webkitAudioContext)();
+        var dest = audio.createMediaStreamDestination();
+        var gain = audio.createGain();
+        gain.gain.value = 0.06;
+        gain.connect(dest);
+        var osc = audio.createOscillator();
+        osc.type = "sine";
+        osc.connect(gain);
+        var start = audio.currentTime + 0.05;
+        for (var s = 0; s < SECONDS * 2; s++) {
+          osc.frequency.setValueAtTime(NOTES[(s + n) % NOTES.length] / (portrait ? 2 : 1), start + s * 0.5);
+        }
+        osc.start(start);
+
+        var stream = canvas.captureStream(30);
+        dest.stream.getAudioTracks().forEach(function (tr) { stream.addTrack(tr); });
+        var type = mimeType();
+        var rec = new MediaRecorder(stream, type ? { mimeType: type, videoBitsPerSecond: 1500000 } : undefined);
+        var chunks = [];
+        rec.ondataavailable = function (e) { if (e.data && e.data.size) chunks.push(e.data); };
+
+        return audio.resume().then(function () {
+          return new Promise(function (resolve) {
+            var poster = null;
+            var t0 = performance.now();
+            draw(ctx, w, h, n, 0);
+            rec.start(1000);
+            var timer = setInterval(function () {
+              var t = (performance.now() - t0) / 1000;
+              draw(ctx, w, h, n, Math.min(t, SECONDS));
+              pctx.fillStyle = "#2A1A19";
+              pctx.fillRect(0, 0, preview.width, preview.height);
+              var sc = Math.min(preview.width / w, preview.height / h);
+              pctx.drawImage(canvas, (preview.width - w * sc) / 2, (preview.height - h * sc) / 2, w * sc, h * sc);
+              if (!poster && t > 2) {
+                poster = "pending";
+                canvas.toBlob(function (b) { poster = b; }, "image/jpeg", 0.85);
+              }
+              if (t >= SECONDS) {
+                clearInterval(timer);
+                rec.onstop = function () {
+                  osc.stop(); audio.close();
+                  var finish = function () {
+                    if (poster === "pending" || !poster) return setTimeout(finish, 50);
+                    resolve({ video: new Blob(chunks, { type: rec.mimeType || type }), poster: poster,
+                              ext: /webm/.test(rec.mimeType || type) ? "webm" : "mp4" });
+                  };
+                  finish();
+                };
+                rec.stop();
+              }
+            }, 1000 / 30);
+          });
+        });
+      }
+
+      /* Makes all tapes in order. onFile(name, blob) is called for each file. */
+      function makeAll(onFile, onStatus) {
+        var tapes = window.DIDI_CONFIG.tapes;
+        var preview = document.getElementById("preview");
+        var i = 0;
+        function next() {
+          if (i >= tapes.length) return Promise.resolve();
+          var n = tapes[i++].id;
+          onStatus("recording tape " + n + " of " + tapes.length + "… (" + SECONDS + " s)");
+          return makeOne(n, preview).then(function (out) {
+            onFile("tape-" + n + "." + out.ext, out.video);
+            onFile("tape-" + n + ".jpg", out.poster);
+            return next();
+          });
+        }
+        return document.fonts.load("80px VT323").then(next);
+      }
+      window.makeAllPlaceholders = makeAll;
+
+      var list = document.getElementById("files");
+      var status = document.getElementById("status");
+      document.getElementById("make").addEventListener("click", function () {
+        var btn = this;
+        btn.disabled = true;
+        list.replaceChildren();
+        if (!mimeType()) { status.textContent = "This browser can't record video. Try Chrome or Safari."; btn.disabled = false; return; }
+        makeAll(function (name, blob) {
+          var li = document.createElement("li");
+          var a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = name;
+          a.textContent = "save " + name;
+          var size = document.createElement("span");
+          size.textContent = (blob.size / 1024 / 1024).toFixed(1) + " MB";
+          li.append(a, size);
+          list.appendChild(li);
+        }, function (s) { status.textContent = s; }).then(function () {
+          status.textContent = "done ♡ save each file into the videos/ folder";
+          btn.disabled = false;
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

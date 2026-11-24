@@ -80,6 +80,14 @@
     '<symbol id="i-rew" viewBox="0 0 16 16"><path d="M15 2.5 L8 8 L15 13.5 Z M8 2.5 L1 8 L8 13.5 Z"/></symbol>' +
     '<symbol id="i-stop" viewBox="0 0 16 16"><rect x="2.5" y="2.5" width="11" height="11"/></symbol>' +
 
+    /* Fullscreen corners (24×24) */
+    '<symbol id="i-fullscreen" viewBox="0 0 24 24">' +
+      '<path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M4 9 V4 H9 M15 4 H20 V9 M20 15 V20 H15 M9 20 H4 V15"/>' +
+    '</symbol>' +
+    /* Small chevrons for prev / next (16×16) */
+    '<symbol id="i-prev" viewBox="0 0 16 16"><path d="M11 2.5 L4 8 L11 13.5 Z"/></symbol>' +
+    '<symbol id="i-next" viewBox="0 0 16 16"><path d="M5 2.5 L12 8 L5 13.5 Z"/></symbol>' +
+
     /* Speaker on / off (24×24) */
     '<symbol id="i-sound-on" viewBox="0 0 24 24">' +
       '<path d="M4 9.2 H7.6 L12.4 5.2 C12.9 4.8 13.6 5.1 13.6 5.8 V18.2 C13.6 18.9 12.9 19.2 12.4 18.8 L7.6 14.8 H4 C3.4 14.8 3 14.4 3 13.8 V10.2 C3 9.6 3.4 9.2 4 9.2 Z"/>' +

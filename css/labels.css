@@ -455,10 +455,58 @@
   filter: drop-shadow(0 .2cqw .2cqw rgba(62, 39, 37, .2));
 }
 
+/* =========================================================
+   7 · gingham-stitch — picnic gingham, stitched cream name plate
+   ========================================================= */
+.label--gingham-stitch .tape__label {
+  padding-left: 2.4cqw;
+  color: var(--cocoa);
+  background:
+    repeating-linear-gradient(90deg, rgba(236, 127, 148, .32) 0 1.6cqw, transparent 1.6cqw 3.2cqw),
+    repeating-linear-gradient(0deg, rgba(255, 179, 138, .45) 0 1.6cqw, transparent 1.6cqw 3.2cqw),
+    #FFF3EA;
+}
+.label--gingham-stitch .tape__text {
+  flex: 0 1 auto;
+  max-width: 74%;
+  padding: .5cqw 2.6cqw .6cqw;
+  border-radius: 1.2cqw;
+  background: var(--cream-light);
+  outline: .3cqw dashed var(--rose);
+  outline-offset: -.9cqw;
+  box-shadow: 0 .25cqw .5cqw rgba(62, 39, 37, .15);
+}
+.label--gingham-stitch .tape__title {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: max(18px, 4.6cqw);
+  line-height: 1.1;
+}
+.label--gingham-stitch .tape__year {
+  margin-left: auto;
+  padding: .4cqw 1.2cqw;
+  border-radius: 99px;
+  background: var(--cream-light);
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: max(14px, 3.6cqw);
+  color: var(--cherry);
+}
+.deco-cherries {
+  position: absolute;
+  right: 12.5cqw;
+  top: 50%;
+  width: 5.4cqw;
+  height: 5.4cqw;
+  transform: translateY(-50%) rotate(-8deg);
+  filter: drop-shadow(0 .2cqw .25cqw rgba(62, 39, 37, .25));
+}
+
 /* ---------- Touch screens / narrow: taller spine, name inside the label ---------- */
 @media (hover: none), (max-width: 700px) {
   .tape__shell { aspect-ratio: 5.6 / 1; }
   .tape__from { display: block; }
   .label--sunset-stripes .tape__from { color: var(--cocoa); }
   .label--sage-flower .tape__from { color: var(--cocoa); }
+  .deco-cherries { right: 20cqw; }
 }

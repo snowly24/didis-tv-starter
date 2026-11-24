@@ -85,7 +85,7 @@
   z-index: calc(20 - var(--i));
   transform: translateX(calc(var(--ox) * var(--ox-scale, 1))) rotate(var(--rot));
 }
-.stack__item + .stack__item { margin-top: 5px; }
+.stack__item + .stack__item { margin-top: 7px; }
 .stack__item:hover,
 .stack__item:focus-within { z-index: 30; }
 
@@ -93,8 +93,8 @@
   animation: tape-float var(--dur) ease-in-out var(--delay) infinite alternate;
 }
 @keyframes tape-float {
-  from { transform: translateY(0); }
-  to   { transform: translateY(var(--amp)); }
+  from { transform: translateY(0) rotate(0deg); }
+  to   { transform: translateY(var(--amp)) rotate(var(--tilt, 0deg)); }
 }
 
 /* Hover / keyboard focus: slide out, lift, straighten */

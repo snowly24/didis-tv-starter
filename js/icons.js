@@ -118,6 +118,15 @@
       '<path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M20 4 L24.5 15.5 L36 15 L26.5 22.5 L30.5 34.5 L20 27 L9.5 34 L13.5 22.5 L4 15.5 L15.5 15.2 Z"/>' +
     '</symbol>' +
 
+    /* Pair of cherries */
+    '<symbol id="i-cherries" viewBox="0 0 40 40">' +
+      '<path fill="none" style="stroke:#7E8E66" stroke-width="1.8" stroke-linecap="round" d="M13 29 C15 20 20 12 27 6 M27 6 C27.5 14 27 22 26.5 30"/>' +
+      '<path style="fill:var(--sage)" d="M27 6 C30.5 2.5 36 3 38.5 6.5 C34.5 9.5 30 9 27 6 Z"/>' +
+      '<circle cx="12.5" cy="31" r="6.2" style="fill:var(--cherry)"/>' +
+      '<circle cx="26.5" cy="32" r="6.2" style="fill:var(--cherry)"/>' +
+      '<path fill="none" stroke="rgba(255,255,255,.65)" stroke-width="1.6" stroke-linecap="round" d="M9.5 29 C10 27.5 11 27 12 26.8 M23.5 30 C24 28.5 25 28 26 27.8"/>' +
+    '</symbol>' +
+
     /* Sun doodle */
     '<symbol id="i-sun" viewBox="0 0 40 40">' +
       '<circle cx="20" cy="20" r="7.5" style="fill:var(--butter)" stroke="currentColor" stroke-width="1.8"/>' +

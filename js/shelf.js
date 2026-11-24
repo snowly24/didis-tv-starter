@@ -18,12 +18,13 @@
 
   /* Gentle, fixed float rhythm per tape (same on every visit) */
   var FLOAT = [
-    { dur: 4.2, delay: -1.1, amp: -2 },
-    { dur: 5.1, delay: -3.4, amp: -1.5 },
-    { dur: 3.8, delay: -0.6, amp: -2.5 },
-    { dur: 4.7, delay: -2.2, amp: -1.2 },
-    { dur: 5.5, delay: -4.0, amp: -2.8 },
-    { dur: 4.4, delay: -1.8, amp: -1.8 }
+    { dur: 3.1, delay: -1.1, amp: -5,   tilt: .35 },
+    { dur: 3.9, delay: -2.6, amp: -3.5, tilt: -.3 },
+    { dur: 2.8, delay: -0.6, amp: -6,   tilt: .25 },
+    { dur: 3.5, delay: -2.2, amp: -4,   tilt: -.4 },
+    { dur: 4.2, delay: -3.1, amp: -5.5, tilt: .3 },
+    { dur: 3.3, delay: -1.8, amp: -3,   tilt: -.25 },
+    { dur: 3.7, delay: -0.9, amp: -4.5, tilt: .4 }
   ];
 
   function create(route, app) {
@@ -65,6 +66,7 @@
       item.style.setProperty("--dur", f.dur + "s");
       item.style.setProperty("--delay", f.delay + "s");
       item.style.setProperty("--amp", f.amp + "px");
+      item.style.setProperty("--tilt", f.tilt + "deg");
 
       var floater = el("div", "stack__float");
       var tape = Tape.create(cfg);

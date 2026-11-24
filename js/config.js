@@ -64,7 +64,7 @@ window.DIDI_CONFIG = {
     soundOff: "Sound is off — turn on"
   },
 
-  /* ---------- The 6 tapes, top of the stack first ----------
+  /* ---------- The 7 tapes, top of the stack first ----------
      title     : big text on the label
      from      : the friend who made the video
      year      : the year this friend met Didi
@@ -72,9 +72,10 @@ window.DIDI_CONFIG = {
      video     : the video file in the videos/ folder
      poster    : a still image from the video (optional)
      message   : optional short note shown under the TV
-     labelStyle: which of the 6 label designs to use:
+     labelStyle: which of the 7 label designs to use:
                  butter-hearts | blush-bow | cherry-sparkle |
-                 paper-washi | sunset-stripes | sage-flower
+                 paper-washi | sunset-stripes | sage-flower |
+                 gingham-stitch
      shell     : tape plastic color: cocoa | pink-clear | cream
      stack     : how the tape sits in the stack
                  offsetX = pixels left (−) or right (+), rotate = degrees
@@ -157,6 +158,19 @@ window.DIDI_CONFIG = {
       labelStyle: "sage-flower",
       shell: "cocoa",
       stack: { offsetX: 8, rotate: -0.8 }
+    },
+    {
+      id: 7,
+      title: "[Tape title 7]",
+      from: "[Friend name 7]",
+      year: "[2020]",
+      code: "E-120",
+      video: "videos/tape-7.mp4",
+      poster: "videos/tape-7.jpg",
+      message: "",
+      labelStyle: "gingham-stitch",
+      shell: "cocoa",
+      stack: { offsetX: -10, rotate: 0.7 }
     }
   ]
 };

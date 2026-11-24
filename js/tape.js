@@ -62,6 +62,9 @@
     "sage-flower": function (d) {
       d.appendChild(icon("wobble-rect", "deco-border"));
       d.appendChild(icon("flower", "deco-flower"));
+    },
+    "gingham-stitch": function (d) {
+      d.appendChild(icon("cherries", "deco-cherries"));
     }
   };
 

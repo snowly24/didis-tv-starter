@@ -20,7 +20,7 @@ Placeholders in `[BRACKETS]` are things I'll fill in later. Build with placehold
 ## 1. Tech requirements
 
 - **One `index.html`, a single-page app with views** (Lock, Shelf, Player, optional Credits) switched by JavaScript, not separate HTML files. Reason: browsers only let video play with sound after a click on the same page. One page keeps the "power on" click valid so tapes can start with sound, and lets views change with TV-style transitions.
-- **Hash routing:** `#/` (lock), `#/shelf`, `#/tape/1` … `#/tape/6`, `#/credits`. Browser back/forward must work. If someone opens `#/shelf` or a tape link while still locked, show the lock screen first, then take them where they were going.
+- **Hash routing:** `#/` (lock), `#/shelf`, `#/tape/1` … `#/tape/7`, `#/credits`. Browser back/forward must work. If someone opens `#/shelf` or a tape link while still locked, show the lock screen first, then take them where they were going.
 - Must work both by double-clicking `index.html` (file://) and on static hosting (Netlify / GitHub Pages / Vercel). So: classic `<script>` tags, no ES module imports, no `fetch()` of local JSON.
 - Folder structure (adjust if you have a good reason, tell me why):
   ```
@@ -30,7 +30,7 @@ Placeholders in `[BRACKETS]` are things I'll fill in later. Build with placehold
   js/         config.js, app.js (router), lock.js, shelf.js, tv.js, tape.js, header.js, player.js,
               effects.js, sound.js, icons.js (SVG sprite), sha256.js (file:// fallback)
   assets/     favicon (all other drawings are SVG symbols in js/icons.js)
-  videos/     tape-1.mp4 … tape-6.mp4 + tape-1.jpg … (posters)
+  videos/     tape-1.mp4 … tape-7.mp4 + tape-1.jpg … (posters)
   tools/      hash-password.html (section 8), tv-test.html (Phase 1 test page),
               make-placeholders.html (section 9)
   references/ inspiration only — never linked from the site, not in git
@@ -128,12 +128,12 @@ Use these for style and layout ideas only. **Don't copy any text, titles, logos 
 
 - Header (3.2).
 - **Floating note** with `[happy birthday sunshine]` (config): a scrapbook note card (butter or cream paper, torn or scalloped edge, washi tape on top, small sun or heart doodle), handwritten font, slightly rotated, gently bobbing and swaying (~6 s loop). Above the stack, never covering it. Clicking it pops a few hearts.
-- **The stack:** 6 tapes as spines lying flat, stacked vertically and centered, like ref 02. Each tape:
+- **The stack:** 7 tapes as spines lying flat, stacked vertically and centered, like ref 02. Each tape:
   - Plastic shell color: mostly cocoa; 1–2 can be translucent pink or cream plastic.
   - **Its own label design:** different color, font, decoration and layout. Title readable at a glance. Year on the right, small tape code on the left (e.g. T-120, E-180, SP). Optional extras: "STEREO", a catalog number, sparkles, a bow, hearts, stripes.
   - Small fixed offset (±10–20 px horizontal, ±1° rotation) taken from config, so it looks hand-stacked but identical on every visit.
-  - The six together must feel like one collection.
-- **Idle:** each tape floats 1–3 px on its own slow rhythm (staggered, not in sync).
+  - The seven together must feel like one collection.
+- **Idle:** each tape floats 3–6 px, with a tiny tilt, on its own rhythm (~3–4 s, staggered, not in sync). Clearly visible, but calm.
 - **Hover (desktop):** the tape slides out ~20 px, lifts (`translateY(-4px)`, bigger soft shadow), straightens to 0°, and a small handwritten tag or sticker peeks out: "from `[Friend]` ♡". The other tapes dim slightly. Springy 200–300 ms ease-out. Optional: slight 3D tilt following the mouse (max ~5°).
 - **Click:** the tape slides out of the stack → channel-change static → Player for that tape.
 - Tapes are real `<button>`s: keyboard focus looks like hover, and Enter opens.
@@ -159,7 +159,7 @@ Desktop layout:
 - Clicking the screen toggles play/pause. Keyboard: Space = play/pause, ← / → = −/+10 s, M = mute, F = fullscreen.
 - **OSD feedback** in the screen corner for every action (`PLAY ▸`, `PAUSE ❚❚`, `REW ◂◂`, `FF ▸▸`), fading after ~1.5 s. The header chip mirrors it.
 - **Side tapes:** the previous tape on the left, the next on the right, as smaller versions of their shelf design (standing at a slight angle, floating). Hover: lift and show the title. Click: go to that tape.
-- **Above the TV:** "◂ prev tape" on the left (previous tape) and "next tape ▸" on the right, styled as handwritten stickers or washi-tape labels. **Wrap around** (tape 6 → next → tape 1; tape 1 → prev → tape 6).
+- **Above the TV:** "◂ prev tape" on the left (previous tape) and "next tape ▸" on the right, styled as handwritten stickers or washi-tape labels. **Wrap around** (tape 7 → next → tape 1; tape 1 → prev → tape 7).
 - **Switching tapes:** pause the current video → channel-change transition → load and play the new one. Update the URL.
 - **When a video ends:** OSD `STOP ■`, then a card on the screen: "next tape: `[title]` ▸" with a 5 s countdown that plays the next tape (with a cancel button). When every tape has been watched, offer the Credits view instead.
 - Under the TV: tape title and "from `[Friend]` ♡" in handwriting, plus an optional short written message from config.
@@ -197,7 +197,7 @@ window.DIDI_CONFIG = {
       video: "videos/tape-1.mp4",
       poster: "videos/tape-1.jpg",
       message: "",                       // optional short note under the TV
-      labelStyle: "butter-hearts",        // one of the 6 label designs
+      labelStyle: "butter-hearts",        // one of the 7 label designs
       shell: "cocoa",                     // cocoa | pink-clear | cream
       stack: { offsetX: -12, rotate: -1 } // hand-stacked look
     }
@@ -208,7 +208,7 @@ window.DIDI_CONFIG = {
 
 - Also make `tools/hash-password.html`: a tiny page where I type a password and get the hash to paste into config.
 
-**Starting ideas for the 6 label designs** (propose your own improvements):
+**Starting ideas for the label designs** (propose your own improvements). There are 7 tapes; the 7th label is `gingham-stitch`: peach/rose gingham, a cream name plate with dashed rose stitching, upright serif title, a cherry doodle.
 1. **Butter yellow**, big handwritten title, little red heart stickers. Classic.
 2. **Blush pink** with a satin bow on the left end and a scalloped lace edge. Coquette.
 3. **Cherry red** with cream retro bubble type and tiny sparkles. Bold.
@@ -218,13 +218,13 @@ window.DIDI_CONFIG = {
 
 ## 9. Videos
 
-- Until the real videos arrive, use **6 placeholder MP4s** (10–15 s each: color bars or a test card with the tape number and a soft tone). **Make one of them portrait (9:16)** so we can test phone-shot videos. ffmpeg isn't installed, so they're made by `tools/make-placeholders.html`, which draws the test cards in the browser and saves them as MP4s (one click per file).
+- Until the real videos arrive, use **7 placeholder MP4s** (10–15 s each: color bars or a test card with the tape number and a soft tone). **Make one of them portrait (9:16)** so we can test phone-shot videos. ffmpeg isn't installed, so they're made by `tools/make-placeholders.html`, which draws the test cards in the browser and saves them as MP4s (one click per file).
 - Real videos: MP4 (H.264 + AAC), 720p, ideally under ~25 MB each. Give me the exact ffmpeg (or HandBrake) settings to compress my files.
 - **Never crop faces:** the video fits fully inside the 4:3 screen.
   - Landscape videos: black letterbox bars (looks authentic on a CRT).
   - Portrait phone videos: centered, with a blurred and zoomed copy (the poster image is fine) filling the sides.
   - Detect orientation automatically from the video's dimensions.
-- Use `playsinline` and `preload="metadata"`. Load only the current tape's video, never all six at once.
+- Use `playsinline` and `preload="metadata"`. Load only the current tape's video, never all seven at once.
 
 ## 10. Effects and playful details
 
@@ -253,7 +253,7 @@ Tasteful and smooth. Quality over quantity.
 
 1. **Foundation:** palette variables, fonts, paper background, the TV component in all states and sizes, the header. Show me a simple test page with the TV in each state.
 2. **Lock view:** the password flow, wrong/right animations, transition to the Shelf.
-3. **Shelf view:** floating note, the 6 tapes from config, idle/hover/click effects.
+3. **Shelf view:** floating note, the 7 tapes from config, idle/hover/click effects.
 4. **Player view** with placeholder videos: controls, OSD, side tapes, back/next with wrap-around, end-of-tape behavior, routing.
 5. **Polish:** sounds, sparkles, transitions, reduced motion, mobile layouts (check at 375, 768 and 1440 px), optional Credits view.
 6. **Real content and launch:** my videos, posters, final titles and password; compression help; deploy to Netlify (drag-and-drop) or GitHub Pages with step-by-step instructions for me.
@@ -262,7 +262,7 @@ Tasteful and smooth. Quality over quantity.
 
 - [ ] Wrong password gives clear feedback; correct password → animation → Shelf; refreshing in the same tab stays unlocked.
 - [ ] A direct link like `#/tape/3` works (after unlocking).
-- [ ] All 6 tapes look different but clearly belong together.
+- [ ] All 7 tapes look different but clearly belong together.
 - [ ] Hover, float and transition effects are smooth.
 - [ ] Video plays inside the TV with sound after the unlock click; all controls and keyboard shortcuts work.
 - [ ] Back/next and the side tapes navigate correctly and wrap around.

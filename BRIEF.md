@@ -127,7 +127,7 @@ Use these for style and layout ideas only. **Don't copy any text, titles, logos 
 ## 5. View 2 — Shelf (`#/shelf`)
 
 - Header (3.2).
-- **Floating note** with `[happy birthday sunshine]` (config): a scrapbook note card (butter or cream paper, torn or scalloped edge, washi tape on top, small sun or heart doodle), handwritten font, slightly rotated, gently bobbing and swaying (~6 s loop). Above the stack, never covering it. Clicking it pops a few hearts. A small handwritten hint under its corner, with a little arrow, invites the click: "click me for extra love ♡" (config).
+- **Floating note** with `[happy birthday sunshine]` (config): a scrapbook note card (butter or cream paper, torn or scalloped edge, washi tape on top, small sun or heart doodle), handwritten font, slightly rotated, gently bobbing and swaying (~6 s loop). Above the stack, never covering it. Clicking it pops a few hearts. A small handwritten hint under its corner, with a little arrow, invites the click: "click me for extra love" (config, no heart).
 - **The stack:** 7 tapes as spines lying flat, stacked vertically and centered, like ref 02. Each tape:
   - Plastic shell color: mostly cocoa; 1–2 can be translucent pink or cream plastic.
   - **Its own label design:** different color, font, decoration and layout. Title readable at a glance. Year on the right, small tape code on the left (e.g. T-120, E-180, SP). Optional extras: "STEREO", a catalog number, sparkles, a bow, hearts, stripes.

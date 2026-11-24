@@ -16,13 +16,13 @@
 /* ---------- Floating note ---------- */
 .note-wrap {
   position: relative;
-  margin: clamp(14px, 3vh, 30px) auto clamp(52px, 7vh, 64px);
+  margin: clamp(34px, 6vh, 60px) auto clamp(52px, 7vh, 64px);
 }
 .note {
   position: relative;
   display: block;
   margin: 0;
-  padding: 20px 40px 26px 34px;
+  padding: 20px 58px 26px 34px;   /* right side leaves room for the sun */
   border: 0;
   background: none;
   font-family: var(--font-hand);
@@ -94,13 +94,6 @@
   transform: scaleY(-1);
 }
 .note__hint span { padding-top: 2px; }
-.note__hint-heart {
-  display: inline-block;
-  width: .7em;
-  height: .64em;
-  margin-left: 1px;
-  fill: var(--cherry);
-}
 
 @keyframes note-bob {
   0%   { transform: translateY(0) rotate(-3deg); }

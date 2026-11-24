@@ -50,8 +50,7 @@
     var noteHint = el("p", "note__hint");
     noteHint.setAttribute("aria-hidden", "true");
     noteHint.appendChild(Icons.el("arrow", "note__hint-arrow"));
-    noteHint.appendChild(el("span", null, CFG.shelf.noteHint + " "));
-    noteHint.appendChild(Icons.el("heart", "note__hint-heart"));
+    noteHint.appendChild(el("span", null, CFG.shelf.noteHint));
     noteWrap.appendChild(noteHint);
     shelf.appendChild(noteWrap);
 
